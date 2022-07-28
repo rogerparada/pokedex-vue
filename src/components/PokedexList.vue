@@ -54,9 +54,7 @@ export default {
 			console.log(this.numItems + this.start);
 			return this.numItems + this.start < this.max + this.start
 				? this.numItems + this.start
-				: this.start > 1
-				? this.max + this.start
-				: this.max;
+				: this.max + this.start - 1;
 		},
 	},
 	methods: {
