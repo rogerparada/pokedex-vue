@@ -1,12 +1,14 @@
 <template>
-	<div :class="`grid grid-cols-${types.length}`">
-		<div
-			class="text-white text-center text-sm capitalize"
-			v-for="ptype in types"
-			:key="ptype.slot"
-			:style="{ 'background-color': typeColor[ptype.type.name] }"
-		>
-			{{ ptype.type.name }}
+	<div v-if="types != null">
+		<div :class="`tw-grid tw-grid-cols-${types.length}`">
+			<div
+				class="tw-text-white tw-text-center tw-text-sm tw-capitalize"
+				v-for="ptype in types"
+				:key="ptype.slot"
+				:style="{ 'background-color': typeColor[ptype.type.name] }"
+			>
+				{{ ptype.type.name }}
+			</div>
 		</div>
 	</div>
 </template>

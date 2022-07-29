@@ -9,7 +9,7 @@ const Global = {
     new Generation(5, "Teselia", 494, 156),
     new Generation(6, "Kalos", 650, 72),
     new Generation(7, "Alola", 722, 88),
-    new Generation(8, "Galar", 809, 89),
+    new Generation(8, "Galar", 810, 89),
   ],
   typeColor: {
     grass: "#78C850",

@@ -1,31 +1,38 @@
 <template>
-	<div class="container md:mx-auto">
-		<div class="text-white text-center mb-5">
-			<span class="text-4xl font-extrabold">{{ generation }}</span>
-			<span class="text-3xl font-bold"> (Generation {{ generationId }})</span>
-		</div>
-		<div class="text-white text-center mb-3">
-			Showing from <span class="font-bold">{{ start }}</span>
-			to
-			<span class="font-bold">{{ showing }}</span> pokemons in this generation
-			<span class="font-bold">{{ max }}</span>
-		</div>
-		<div class="text-center mb-3" v-if="pokemons !== null">
-			<label for="items" class="font-bold mr-2 text-white">Items:</label>
-			<select name="" id="" v-model.number="numItems" class="w-32">
-				<option :value="10">10</option>
-				<option value="50">50</option>
-				<option v-if="max >= 100" value="100">100</option>
-				<option v-else :value="max">{{ max }}</option>
-				<option v-if="max > 100" :value="max">{{ max }}</option>
-			</select>
-		</div>
-		<div class="flex flex-wrap gap-4 justify-center">
-			<div v-for="pokemon in pokemons" :key="pokemon.name">
-				<PokemonCard
-					:pokemon="pokemon"
-					v-on:changePokemon="changePokemon($event)"
-				/>
+	<div>
+		<div class="container tw-md:mx-auto tw-w-auto">
+			<div class="tw-text-white tw-text-center mb-5">
+				<span class="tw-text-4xl tw-font-extrabold">{{ generation }}</span>
+				<span class="tw-text-3xl tw-font-bold">
+					(Generation {{ generationId }})</span
+				>
+			</div>
+			<div class="tw-text-white tw-text-center mb-3">
+				Showing from <span class="tw-font-bold">{{ start }}</span>
+				to
+				<span class="tw-font-bold">{{ showing }}</span> | Pokemons in this
+				generation
+				<span class="tw-font-bold">{{ max }}</span>
+			</div>
+			<div class="tw-text-center tw-mb-3" v-if="pokemons !== null">
+				<label for="items" class="tw-font-bold tw-mr-2 tw-text-white"
+					>Items:</label
+				>
+				<select name="" id="" v-model.number="numItems" class="w-32">
+					<option :value="10">10</option>
+					<option value="50">50</option>
+					<option v-if="max >= 100" value="100">100</option>
+					<option v-else :value="max">{{ max }}</option>
+					<option v-if="max > 100" :value="max">{{ max }}</option>
+				</select>
+			</div>
+			<div class="tw-flex tw-flex-wrap tw-gap-4 tw-justify-center">
+				<div v-for="pokemon in pokemons" :key="pokemon.name">
+					<PokemonCard
+						:pokemon="pokemon"
+						v-on:changePokemon="changePokemon($event)"
+					/>
+				</div>
 			</div>
 		</div>
 	</div>
