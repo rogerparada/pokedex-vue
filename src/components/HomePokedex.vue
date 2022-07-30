@@ -12,7 +12,7 @@
 					<p class="pokemonName tw-text-xl tw-text-center">
 						<strong>{{ pokemon.id }}</strong> {{ pokemon.name }}
 					</p>
-					<TypeSelector :types="pokemon.types" />
+					<TypeSelector :types="pokemon.types" :size="'xl'" />
 				</div>
 			</router-link>
 		</div>

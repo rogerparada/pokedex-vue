@@ -1,8 +1,18 @@
 <template>
 	<div v-if="types != null">
-		<div :class="`tw-grid tw-grid-cols-${types.length}`">
+		<div class="tw-flex tw-flex-row doubleType" v-if="types.length > 1">
 			<div
-				class="tw-text-white tw-text-center tw-text-sm tw-capitalize"
+				:class="getSize"
+				v-for="ptype in types"
+				:key="ptype.slot"
+				:style="{ 'background-color': typeColor[ptype.type.name] }"
+			>
+				{{ ptype.type.name }}
+			</div>
+		</div>
+		<div class="tw-flex tw-flex-row" v-else>
+			<div
+				:class="`singleType ${getSize}`"
 				v-for="ptype in types"
 				:key="ptype.slot"
 				:style="{ 'background-color': typeColor[ptype.type.name] }"
@@ -28,10 +38,25 @@ export default {
 			type: Array,
 			default: null,
 		},
+		size: {
+			type: String,
+			default: 'sm',
+		},
 	},
-	methods: {
-		getClass() {
-			return;
+	computed: {
+		getSize() {
+			switch (this.size) {
+				case 'sm':
+					return `tw-text-${this.size} tw-p-1`;
+				case 'md':
+					return `tw-text-${this.size} tw-p-2`;
+				case 'lg':
+					return `tw-text-${this.size} tw-p-3`;
+				case 'xl':
+					return `tw-text-${this.size} tw-p-5`;
+				default:
+					return '';
+			}
 		},
 	},
 };

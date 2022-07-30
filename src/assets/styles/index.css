@@ -79,3 +79,29 @@ a {
 	text-decoration: none !important;
 	color: #000000 !important;
 }
+
+.singleType {
+	color: white;
+	border-bottom-left-radius: var(--bs-card-border-radius);
+	border-bottom-right-radius: var(--bs-card-border-radius);
+	text-transform: capitalize;
+	text-align: center;
+	width: 100%;
+}
+
+.doubleType {
+	color: white;
+	text-transform: capitalize;
+	text-align: center;
+	width: 100%;
+}
+
+.doubleType :first-child {
+	border-bottom-left-radius: var(--bs-card-border-radius);
+	width: 50%;
+}
+
+.doubleType :last-child {
+	border-bottom-right-radius: var(--bs-card-border-radius);
+	width: 50%;
+}
