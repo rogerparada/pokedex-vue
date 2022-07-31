@@ -7,7 +7,9 @@
 				:key="ptype.slot"
 				:style="{ 'background-color': typeColor[ptype.type.name] }"
 			>
-				{{ ptype.type.name }}
+				<router-link :to="`/list/types/${ptype.type.name}`" class="link-light">
+					{{ ptype.type.name }}
+				</router-link>
 			</div>
 		</div>
 		<div class="tw-flex tw-flex-row" v-else>
@@ -17,7 +19,12 @@
 				:key="ptype.slot"
 				:style="{ 'background-color': typeColor[ptype.type.name] }"
 			>
-				{{ ptype.type.name }}
+				<router-link
+					:to="`/list/types/${ptype.type.name}`"
+					class="link-light tw-capitalize"
+				>
+					{{ ptype.type.name }}
+				</router-link>
 			</div>
 		</div>
 	</div>
@@ -47,13 +54,13 @@ export default {
 		getSize() {
 			switch (this.size) {
 				case 'sm':
-					return `tw-text-${this.size} tw-p-1`;
+					return `tw-text-${this.size} tw-p-1 tw-font-light`;
 				case 'md':
-					return `tw-text-${this.size} tw-p-2`;
+					return `tw-text-${this.size} tw-p-2 tw-font-normal`;
 				case 'lg':
-					return `tw-text-${this.size} tw-p-3`;
+					return `tw-text-${this.size} tw-p-3 tw-font-medium`;
 				case 'xl':
-					return `tw-text-${this.size} tw-p-5`;
+					return `tw-text-${this.size} tw-p-5 tw-font-semi-bold`;
 				default:
 					return '';
 			}

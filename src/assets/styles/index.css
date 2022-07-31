@@ -77,7 +77,9 @@ nav a.router-link-exact-active {
 
 a {
 	text-decoration: none !important;
-	color: #000000 !important;
+}
+a :hover {
+	pointer-events: none !important;
 }
 
 .singleType {
@@ -104,4 +106,15 @@ a {
 .doubleType :last-child {
 	border-bottom-right-radius: var(--bs-card-border-radius);
 	width: 50%;
+}
+
+.pokeNumber {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-top-right-radius: var(--bs-card-border-radius);
+	border-bottom-left-radius: 10px;
+	color: white;
+	padding: 5px;
 }

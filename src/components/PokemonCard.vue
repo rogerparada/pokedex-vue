@@ -1,9 +1,15 @@
 <template>
 	<div class="card tw-w-40 tw-h-52 tw-bg-white tw-shadow-md tw-shadow-red-900">
+		<div
+			class="pokeNumber tw-text-sm tw-font-thin"
+			:style="{ 'background-color': typeColor[mainType] }"
+		>
+			<strong>{{ id }}</strong>
+		</div>
 		<img :src="image" alt="" />
-		<p class="capitalize tw-text-center tw-text-sm">
-			{{ pokemon.name }} <strong>{{ id }}</strong>
-		</p>
+		<div class="tw-capitalize tw-text-center tw-text-sm">
+			{{ pokemon.name }}
+		</div>
 
 		<TypeSelector :types="types" />
 	</div>
@@ -11,6 +17,7 @@
 
 <script>
 import TypeSelector from './TypeSelector.vue';
+import Global from '@/Global';
 
 export default {
 	name: 'PokemonCard',
@@ -28,6 +35,7 @@ export default {
 			image: null,
 			types: null,
 			id: 0,
+			typeColor: Global.typeColor,
 		};
 	},
 	methods: {
@@ -42,6 +50,11 @@ export default {
 	},
 	created() {
 		this.getPokemonData();
+	},
+	computed: {
+		mainType() {
+			return this.types != null ? this.types[0].type.name : 'grass';
+		},
 	},
 };
 </script>

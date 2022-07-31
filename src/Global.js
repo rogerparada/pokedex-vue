@@ -1,6 +1,7 @@
 import Generation from "./models/GenerationModel";
 const Global = {
   Url: "https://pokeapi.co/api/v2/",
+  Max: 898,
   Generations: [
     new Generation(1, "Kanto", 1, 151),
     new Generation(2, "Johto", 152, 100),
@@ -31,5 +32,7 @@ const Global = {
     ice: "#53d1bf",
     dark: "#5b5366",
   },
+  //Types: getPokemonTypes(),
 };
+
 export default Global;

@@ -17,11 +17,8 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<router-link class="nav-link active" aria-current="page" to="/"
-								>Home</router-link
-							>
+							<router-link class="nav-link" to="/">Home</router-link>
 						</li>
-
 						<li class="nav-item dropdown">
 							<router-link
 								class="nav-link dropdown-toggle"
@@ -34,16 +31,51 @@
 							</router-link>
 							<ul class="dropdown-menu">
 								<li v-for="gen in generations" :key="gen.name">
-									<router-link class="dropdown-item" :to="`/pokedex/${gen.id}`">
-										{{ `${gen.id}. ${gen.name}` }}
+									<router-link
+										class="dropdown-item tw-text-sm"
+										:to="`/list/pokedex/${gen.id}`"
+									>
+										<span class="tw-font-bold">{{ gen.id }}. </span>
+										<span class="tw-font-light">{{ gen.name }}</span>
 									</router-link>
 								</li>
 
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<router-link class="dropdown-item" to="/"
-										>All Pokemons</router-link
+									<router-link class="dropdown-item" to="/">
+										<span class="tw-font-bold tw-text-sm">All Pokemons</span>
+									</router-link>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<router-link
+								class="nav-link dropdown-toggle"
+								to="/pokedex"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Types
+							</router-link>
+							<ul class="dropdown-menu">
+								<li v-for="ty in types" :key="ty.name">
+									<router-link
+										class="dropdown-item tw-text-sm"
+										:to="`/list/types/${ty.name}`"
 									>
+										<span class="tw-font-semibold">{{ ty.id }}. </span>
+										<span class="tw-font-light tw-capitalize">{{
+											ty.name
+										}}</span>
+									</router-link>
+								</li>
+
+								<li><hr class="dropdown-divider" /></li>
+								<li>
+									<router-link class="dropdown-item" to="/">
+										<span class="tw-font-bold tw-text-sm">All Pokemons</span>
+									</router-link>
 								</li>
 							</ul>
 						</li>
@@ -71,11 +103,32 @@
 <script>
 import Global from '@/Global';
 export default {
-	name: 'SidebarComponent',
+	name: 'MenuComponent',
 	data() {
 		return {
 			generations: Global.Generations,
+			types: null,
 		};
+	},
+	methods: {
+		getPokemonTypes() {
+			fetch(Global.Url + 'type/')
+				.then((response) => response.json())
+				.then((data) => {
+					this.types = [];
+					data.results
+						.filter((f) => f.name != 'shadow' && f.name != 'unknown')
+						.forEach((t, index) => {
+							this.types.push({
+								id: index + 1,
+								name: t.name,
+							});
+						});
+				});
+		},
+	},
+	created() {
+		this.getPokemonTypes();
 	},
 };
 </script>
