@@ -107,29 +107,11 @@ export default {
 	data() {
 		return {
 			generations: Global.Generations,
-			types: null,
+			types: Global.Types,
 		};
 	},
-	methods: {
-		getPokemonTypes() {
-			fetch(Global.Url + 'type/')
-				.then((response) => response.json())
-				.then((data) => {
-					this.types = [];
-					data.results
-						.filter((f) => f.name != 'shadow' && f.name != 'unknown')
-						.forEach((t, index) => {
-							this.types.push({
-								id: index + 1,
-								name: t.name,
-							});
-						});
-				});
-		},
-	},
-	created() {
-		this.getPokemonTypes();
-	},
+	methods: {},
+	created() {},
 };
 </script>
 

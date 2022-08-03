@@ -17,19 +17,32 @@
 			</router-link>
 		</div>
 		<div class="card tw-w-96">
-			<router-link
-				:to="'/pokedex/' + ge.id"
-				v-for="ge in generation"
-				:key="ge.id"
-			>
-				<div class="tw-flex tw-flex-row tw-justify-between tw-text-center">
-					<div class="">{{ ge.id }} |</div>
-					<div class="text-center">{{ ge.name }}</div>
-					<div class="text-center">
-						{{ `${ge.start} - ${ge.start + ge.pokemons - 1}` }}
-					</div>
-				</div>
-			</router-link>
+			<h4 class="tw-px-7 tw-pt-5">Generations</h4>
+			<hr />
+			<div class="tw-py-6 tw-px-7">
+				<router-link
+					:to="'list/pokedex/' + ge.id"
+					v-for="ge in generation"
+					:key="ge.id"
+					class="link link-dark"
+				>
+					<GenerationBanner :generation="ge" />
+				</router-link>
+			</div>
+		</div>
+		<div class="card tw-w-96">
+			<h4 class="tw-px-7 tw-pt-5">Types</h4>
+			<hr />
+			<div class="tw-py-6 tw-px-7">
+				<router-link
+					:to="'list/types/' + ty.name"
+					v-for="ty in types"
+					:key="ty.id"
+					class="link link-dark"
+				>
+					<TypeBanner :pokemonType="ty" />
+				</router-link>
+			</div>
 		</div>
 	</div>
 </template>
@@ -37,6 +50,8 @@
 <script>
 import Global from '../Global';
 import TypeSelector from './TypeSelector.vue';
+import GenerationBanner from './GenerationBanner.vue';
+import TypeBanner from './TypeBanner.vue';
 
 export default {
 	name: 'HomePokedex',
@@ -68,16 +83,21 @@ export default {
 	data() {
 		return {
 			pokemon: null,
-			random: this.getRandom(1, 897),
+			random: this.getRandom(1, 898),
 			url: Global.Url,
 			generation: Global.Generations,
+			types: Global.Types,
 		};
 	},
 	created() {
 		this.getPokemonData();
 	},
-	components: { TypeSelector },
+	components: { TypeSelector, GenerationBanner, TypeBanner },
 };
 </script>
 
-<style></style>
+<style>
+hr {
+	margin: 0;
+}
+</style>
