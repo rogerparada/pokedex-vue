@@ -118,3 +118,14 @@ a :hover {
 	color: white;
 	padding: 5px;
 }
+
+#PokemonInfo {
+	display: flex;
+	background-color: white;
+	position: relative;
+}
+
+#pokeImage {
+	position: absolute;
+	top: 0;
+}
