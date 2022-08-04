@@ -1,3 +1,4 @@
+import Global from "@/Global";
 export class Pokemon {
   async getPokemonData(url) {
     try {
@@ -7,7 +8,7 @@ export class Pokemon {
         id: data.id,
         name: data.name,
         image: data.sprites.other.home.front_default,
-        types: data.types,
+        types: this.getTypes(data.types),
       };
     } catch (error) {
       console.error(error);
@@ -32,7 +33,7 @@ export class Pokemon {
         id,
         name,
         image: sprites.other.home.front_default,
-        types,
+        types: this.getTypes(types),
         height,
         stats,
         base_experience,
@@ -42,5 +43,9 @@ export class Pokemon {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  getTypes(types) {
+    return types.map((t) => Global.Types.find((x) => x.name == t.type.name));
   }
 }

@@ -4,11 +4,11 @@
 			<div
 				:class="getSize"
 				v-for="ptype in types"
-				:key="ptype.slot"
-				:style="{ 'background-color': typeColor[ptype.type.name] }"
+				:key="ptype.name"
+				:style="{ 'background-color': ptype.color }"
 			>
-				<router-link :to="`/list/types/${ptype.type.name}`" class="link-light">
-					{{ ptype.type.name }}
+				<router-link :to="`/list/types/${ptype.name}`" class="link-light">
+					{{ ptype.name }}
 				</router-link>
 			</div>
 		</div>
@@ -17,13 +17,13 @@
 				:class="`singleType ${getSize}`"
 				v-for="ptype in types"
 				:key="ptype.slot"
-				:style="{ 'background-color': typeColor[ptype.type.name] }"
+				:style="{ 'background-color': ptype.color }"
 			>
 				<router-link
-					:to="`/list/types/${ptype.type.name}`"
+					:to="`/list/types/${ptype.name}`"
 					class="link-light tw-capitalize"
 				>
-					{{ ptype.type.name }}
+					{{ ptype.name }}
 				</router-link>
 			</div>
 		</div>
@@ -31,15 +31,9 @@
 </template>
 
 <script>
-import Global from '@/Global';
-
 export default {
 	name: 'TypeSelector',
-	data() {
-		return {
-			typeColor: Global.typeColor,
-		};
-	},
+
 	props: {
 		types: {
 			type: Array,

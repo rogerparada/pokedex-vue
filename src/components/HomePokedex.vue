@@ -1,22 +1,11 @@
 <template>
 	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-5">
-		<div class="card tw-w-96 tw-h-96" v-if="pokemon != null">
-			<router-link :to="'/pokemon/' + pokemon.name">
-				<div class="">
-					<img
-						:src="pokemon.image"
-						:alt="pokemon.name"
-						:title="pokemon.name"
-						class="h-64"
-					/>
-					<p class="pokemonName tw-text-xl tw-text-center">
-						<strong>{{ pokemon.id }}</strong> {{ pokemon.name }}
-					</p>
-					<TypeSelector :types="pokemon.types" :size="'xl'" />
-				</div>
+		<div class="tw-w-96 tw-bg-white" v-if="pokemon != null">
+			<router-link :to="'/pokemon/' + pokemon.name" class="link link-dark">
+				<PokemonInfo :id="pokemon.id" />
 			</router-link>
 		</div>
-		<div class="card tw-w-96">
+		<div class="tw-w-96 tw-bg-white">
 			<h4 class="tw-px-7 tw-pt-5">Generations</h4>
 			<hr />
 			<div class="tw-py-6 tw-px-7">
@@ -30,7 +19,7 @@
 				</router-link>
 			</div>
 		</div>
-		<div class="card tw-w-96">
+		<div class="tw-w-96 tw-bg-white">
 			<h4 class="tw-px-7 tw-pt-5">Types</h4>
 			<hr />
 			<div class="tw-py-6 tw-px-7">
@@ -49,9 +38,11 @@
 
 <script>
 import Global from '../Global';
-import TypeSelector from './TypeSelector.vue';
 import GenerationBanner from './GenerationBanner.vue';
 import TypeBanner from './TypeBanner.vue';
+
+import { Pokemon } from '@/api/Pokemon';
+import PokemonInfo from './PokemonFullCard.vue';
 
 export default {
 	name: 'HomePokedex',
@@ -67,7 +58,7 @@ export default {
 			fetch(fetchUrl)
 				.then((result) => result.json())
 				.then((data) => {
-					console.log(data);
+					//console.log(data);
 					this.pokemon = {
 						id: data.id,
 						name: data.name,
@@ -78,6 +69,16 @@ export default {
 				.catch((err) => {
 					console.error(err);
 				});
+		},
+
+		getData() {
+			(async () => {
+				const data = new Pokemon();
+				const response = await data.getPokemonData(
+					this.url + 'pokemon/' + this.random
+				);
+				this.pokemon = response;
+			})();
 		},
 	},
 	data() {
@@ -90,9 +91,11 @@ export default {
 		};
 	},
 	created() {
-		this.getPokemonData();
+		//this.getPokemonData();
+		this.getData();
 	},
-	components: { TypeSelector, GenerationBanner, TypeBanner },
+
+	components: { PokemonInfo, GenerationBanner, TypeBanner },
 };
 </script>
 

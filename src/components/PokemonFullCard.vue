@@ -8,11 +8,11 @@
 			<div
 				id="typeFrame"
 				class="tw-w-full tw-h-52"
-				:style="{ 'background-color': typeColor[mainType] }"
+				:style="{ 'background-color': mainType.color }"
 			></div>
 			<div
 				class="pokeNumber tw-bg-white tw-text-sm tw-font-bold"
-				:style="{ color: typeColor[mainType] }"
+				:style="{ color: mainType.color }"
 			>
 				{{ pokemon.id }}
 			</div>
@@ -26,6 +26,27 @@
 		<div id="bodyCard">
 			<div id="name" class="tw-capitalize tw-text-center tw-font-bold">
 				{{ pokemon.name }}
+				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-pt-3">
+					<div class="tw-flex tw-flex-col tw-leading-7">
+						<span class="tw-text-base tw-leading-7">
+							{{ pokemon.stats.weight }}
+						</span>
+						<span class="tw-font-semibold tw-justify-center tw-text-center"
+							>Weight</span
+						>
+					</div>
+					<div class="">
+						<TypeIcon :types="pokemon.types" />
+					</div>
+					<div class="tw-flex tw-flex-col tw-leading-7">
+						<span class="tw-text-base tw-leading-7">
+							{{ pokemon.stats.height }}
+						</span>
+						<span class="tw-font-semibold tw-justify-center tw-text-center"
+							>Height</span
+						>
+					</div>
+				</div>
 			</div>
 			<div id="stats">
 				<div class=""></div>
@@ -44,6 +65,7 @@ import { Pokemon } from '@/api/Pokemon';
 import Global from '../Global';
 import { Stadistics } from '../models/PokemonModel';
 import PokemonStats from './PokemonStats.vue';
+import TypeIcon from './TypeIcon.vue';
 export default {
 	name: 'PokemonInfo',
 	data() {
@@ -51,7 +73,7 @@ export default {
 			name: null,
 			url: Global.Url,
 			pokemon: null,
-			typeColor: Global.typeColor,
+
 			mainType: null,
 		};
 	},
@@ -63,6 +85,7 @@ export default {
 	},
 	components: {
 		PokemonStats,
+		TypeIcon,
 	},
 	methods: {
 		getData() {
@@ -79,7 +102,7 @@ export default {
 					stats,
 					types,
 				};
-				this.mainType = types[0].type.name;
+				this.mainType = types[0];
 			})();
 		},
 	},
