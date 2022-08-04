@@ -120,7 +120,7 @@ export default {
 				case 'pokedex':
 					this.loadGeneration(id);
 					this.url = `${baseUrl}pokemon?limit=${this.numItems}&offset=${
-						this.start > 1 ? this.start : 0
+						this.start > 1 ? this.start - 1 : 0
 					}`;
 					break;
 				case 'types':

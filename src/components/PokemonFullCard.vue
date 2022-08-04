@@ -16,6 +16,9 @@
 			>
 				{{ pokemon.id }}
 			</div>
+			<div class="pokeGeneration">
+				{{ `G-${pokemon.information.generation.id}` }}
+			</div>
 			<div
 				id="pokeImage"
 				class="tw-mx-auto tw-w-full tw-h-72 ml-5 mr-5 tw-flex tw-justify-center"
@@ -24,8 +27,11 @@
 			</div>
 		</div>
 		<div id="bodyCard">
-			<div id="name" class="tw-capitalize tw-text-center tw-font-bold">
-				{{ pokemon.name }}
+			<div id="name" class="tw-capitalize tw-text-center">
+				<div class="tw-flex tw-flex-col">
+					<span>{{ pokemon.name }}</span>
+					<span class="tw-font-light">{{ pokemon.information.name }}</span>
+				</div>
 				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-pt-3">
 					<div class="tw-flex tw-flex-col tw-leading-7">
 						<span class="tw-text-base tw-leading-7">
@@ -49,8 +55,10 @@
 				</div>
 			</div>
 			<div id="stats">
-				<div class=""></div>
 				<hr />
+				<div class="tw-mx-5 tw-font-light tw-text-sm tw-text-justify">
+					{{ pokemon.information.description }}
+				</div>
 				<div id="stats" class="">
 					<div id="description"></div>
 					<PokemonStats :stats="pokemon.stats.stadistics" />
@@ -92,7 +100,7 @@ export default {
 			const p = new Pokemon();
 			(async () => {
 				let poke = await p.getPokemonFullData(this.url);
-				let { name, id, image, base_experience, types } = poke;
+				let { name, id, image, base_experience, types, information } = poke;
 				let stats = new Stadistics(poke);
 				this.pokemon = {
 					name,
@@ -101,6 +109,7 @@ export default {
 					base_experience,
 					stats,
 					types,
+					information,
 				};
 				this.mainType = types[0];
 			})();
