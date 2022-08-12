@@ -5,12 +5,17 @@
 			class="tw-flex tw-flex-wrap tw-justify-center tw-gap-3"
 			v-if="Evolutions != null"
 		>
-			<div class="tw-w-32" v-for="(item, index) in pokemon" :key="index">
+			<router-link
+				:to="item.url"
+				class="tw-w-32 link link-dark"
+				v-for="(item, index) in pokemon"
+				:key="index"
+			>
 				<img :src="item.image" :alt="item.name" />
 				<div class="tw-capitalize tw-text-center tw-text-sm tw-font-thin">
 					<span class="tw-font-light">{{ item.id }}</span> {{ item.name }}
 				</div>
-			</div>
+			</router-link>
 		</div>
 	</div>
 </template>
@@ -42,6 +47,7 @@ export default {
 					id,
 					name,
 					image,
+					url: `/pokemon/${name}`,
 				});
 			})();
 		},
