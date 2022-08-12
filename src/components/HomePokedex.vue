@@ -1,36 +1,28 @@
 <template>
 	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-5">
 		<div class="tw-w-96 tw-bg-white" v-if="pokemon != null">
-			<router-link :to="'/pokemon/' + pokemon.name" class="link link-dark">
-				<PokemonInfo :id="pokemon.id" />
-			</router-link>
+			<PokemonFullCard :id="pokemon.id" :pokeUrl="'/pokemon/' + pokemon.name" />
 		</div>
 		<div class="tw-w-96 tw-bg-white">
 			<h4 class="tw-px-7 tw-pt-5">Generations</h4>
-			<hr />
+			<hr class="tw-m-0" />
 			<div class="tw-py-6 tw-px-7">
-				<router-link
+				<div
 					:to="'list/pokedex/' + ge.id"
 					v-for="ge in generation"
 					:key="ge.id"
-					class="link link-dark"
 				>
 					<GenerationBanner :generation="ge" />
-				</router-link>
+				</div>
 			</div>
 		</div>
 		<div class="tw-w-96 tw-bg-white">
 			<h4 class="tw-px-7 tw-pt-5">Types</h4>
-			<hr />
+			<hr class="tw-m-0" />
 			<div class="tw-py-6 tw-px-7">
-				<router-link
-					:to="'list/types/' + ty.name"
-					v-for="ty in types"
-					:key="ty.id"
-					class="link link-dark"
-				>
+				<div v-for="ty in types" :key="ty.id">
 					<TypeBanner :pokemonType="ty" />
-				</router-link>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -42,7 +34,8 @@ import GenerationBanner from './GenerationBanner.vue';
 import TypeBanner from './TypeBanner.vue';
 
 import { Pokemon } from '@/api/Pokemon';
-import PokemonInfo from './PokemonFullCard.vue';
+
+import PokemonFullCard from './PokemonFullCard.vue';
 
 export default {
 	name: 'HomePokedex',
@@ -76,7 +69,7 @@ export default {
 		this.getData();
 	},
 
-	components: { PokemonInfo, GenerationBanner, TypeBanner },
+	components: { GenerationBanner, TypeBanner, PokemonFullCard },
 };
 </script>
 

@@ -17,19 +17,38 @@
 				{{ pokemon.id }}
 			</div>
 			<div class="pokeGeneration">
-				{{ `G-${pokemon.information.generation.id}` }}
+				<img
+					class="pokeGenerationSVG tw-w-8"
+					:src="pokemon.information.generation.image"
+					alt=""
+					srcset=""
+				/>
 			</div>
 			<div
 				id="pokeImage"
 				class="tw-mx-auto tw-w-full tw-h-72 ml-5 mr-5 tw-flex tw-justify-center"
 			>
-				<img class="tw-h-full" :src="pokemon.image" />
+				<router-link
+					:to="pokeUrl"
+					v-if="pokeUrl != null"
+					class="tw-flex tw-justify-center"
+				>
+					<img class="tw-h-full" :src="pokemon.image" />
+				</router-link>
+				<img class="tw-h-full" :src="pokemon.image" v-else />
 			</div>
 		</div>
 		<div id="bodyCard">
 			<div id="name" class="tw-capitalize tw-text-center">
 				<div class="tw-flex tw-flex-col">
-					<span>{{ pokemon.name }}</span>
+					<router-link
+						:to="pokeUrl"
+						v-if="pokeUrl != null"
+						class="link link-dark"
+					>
+						<span class="tw-font-bold">{{ pokemon.name }}</span>
+					</router-link>
+					<span v-else class="tw-font-bold">{{ pokemon.name }}</span>
 					<span class="tw-font-light">{{ pokemon.information.name }}</span>
 				</div>
 				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-pt-3">
@@ -75,7 +94,7 @@ import { Stadistics } from '../models/PokemonModel';
 import PokemonStats from './PokemonStats.vue';
 import TypeIcon from './TypeIcon.vue';
 export default {
-	name: 'PokemonInfo',
+	name: 'PokemonFullCard',
 	data() {
 		return {
 			name: null,
@@ -88,6 +107,10 @@ export default {
 	props: {
 		id: {
 			type: Number,
+			default: null,
+		},
+		pokeUrl: {
+			type: String,
 			default: null,
 		},
 	},

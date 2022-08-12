@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<router-link :to="'list/types/' + pokemonType.name" class="link link-dark">
 		<div class="tw-grid tw-grid-cols-6 tw-font-thin tw-text-sm tw-h-8">
 			<div class="">
 				<img :src="pokemonType.icon" :alt="pokemonType.name" class="tw-h-6" />
@@ -11,7 +11,7 @@
 				{{ pokemonType.pokemons }}
 			</div>
 		</div>
-	</div>
+	</router-link>
 </template>
 <script>
 import Global from '@/Global';

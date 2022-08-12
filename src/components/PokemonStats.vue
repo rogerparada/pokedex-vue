@@ -82,7 +82,6 @@ export default {
 	},
 	created() {
 		if (this.stats != null) {
-			console.log('watcher');
 			const { hp, attack, defense, spAttack, spDefense, speed } = this.stats;
 			this.hp = hp;
 			this.attack = attack;

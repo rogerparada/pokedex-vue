@@ -14,6 +14,21 @@ export class Pokemon {
       console.error(error);
     }
   }
+
+  async getPokemonImage(url) {
+    try {
+      const result = await fetch(url);
+      const data = await result.json();
+      return {
+        id: data.id,
+        name: data.name,
+        image: data.sprites.other.home.front_default,
+      };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async getPokemonFullData(url) {
     try {
       const result = await fetch(url);
@@ -55,12 +70,41 @@ export class Pokemon {
     const result = await fetch(url);
     const data = await result.json();
 
-    const { generation, genera, flavor_text_entries } = data;
+    const { generation, genera, flavor_text_entries, evolution_chain } = data;
     return {
       generation: this.formatGeneration(generation.name),
       name: genera.filter((x) => x.language.name === "en")[0].genus,
       description: flavor_text_entries.find((x) => x.language.name === "en")
         .flavor_text,
+      evolution: await this.getEvolutions(evolution_chain.url),
+    };
+  }
+
+  async getEvolutions(url) {
+    const result = await fetch(url);
+    const data = await result.json();
+    let evo = [];
+    const { chain } = data;
+    evo.push(this.getEvo(chain));
+
+    chain.evolves_to.forEach((item) => {
+      evo.push(this.getEvo(item));
+
+      item.evolves_to.forEach((item2) => {
+        evo.push(this.getEvo(item2));
+      });
+    });
+    console.log(evo);
+    return evo;
+  }
+  getEvo(item) {
+    let name = item.species.name;
+    let { evolution_details } = item;
+    let tr = evolution_details[0];
+    return {
+      name: name,
+      url: Global.Url + "pokemon/" + name,
+      trigger: tr != undefined ? tr.trigger.name : null,
     };
   }
 

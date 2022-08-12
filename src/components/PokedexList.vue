@@ -2,11 +2,11 @@
 	<div>
 		<div class="container tw-md:mx-auto tw-w-auto">
 			<div id="GenerationBanner" v-if="generation != null">
-				<div class="tw-text-white tw-text-center mb-5">
+				<div
+					class="tw-text-white tw-text-center mb-3 tw-flex tw-flex-row tw-justify-center tw-gap-3"
+				>
 					<span class="tw-text-4xl tw-font-extrabold">{{ generation }}</span>
-					<span class="tw-text-3xl tw-font-bold">
-						(Generation {{ generationId }})</span
-					>
+					<img :src="icon" :alt="generation" class="tw-w-10" />
 				</div>
 				<div class="tw-text-white tw-text-center mb-3">
 					Showing from <span class="tw-font-bold">{{ start }}</span>
@@ -65,6 +65,7 @@ export default {
 			max: 0,
 			url: null,
 			listType: null,
+			icon: null,
 		};
 	},
 	props: {},
@@ -103,6 +104,7 @@ export default {
 			this.max = gen.pokemons;
 			this.generation = gen.name;
 			this.generationId = gen.id;
+			this.icon = gen.image;
 		},
 		getByTypes(pokemons) {
 			let pokes = pokemons.map((p) => p.pokemon);
