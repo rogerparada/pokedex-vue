@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomePokedex from "../components/HomePokedex";
 import PokedexList from "../components/PokedexList";
-import PokemonFullCard from "../components/PokemonFullCard";
+import PokemonInfo from "../components/PokemonInfo";
 
 Vue.use(VueRouter);
 
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: "/pokemon/:name",
-    component: PokemonFullCard,
+    component: PokemonInfo,
   },
   {
     path: "/list/:listType/:id",

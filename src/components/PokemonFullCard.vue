@@ -56,7 +56,7 @@
 			</div>
 			<div id="stats">
 				<hr />
-				<div class="tw-mx-5 tw-font-light tw-text-sm tw-text-justify">
+				<div class="tw-mx-5 tw-font-light tw-text-sm tw-text-justify tw-italic">
 					{{ pokemon.information.description }}
 				</div>
 				<div id="stats" class="">

@@ -59,7 +59,7 @@ export class Pokemon {
     return {
       generation: this.formatGeneration(generation.name),
       name: genera.filter((x) => x.language.name === "en")[0].genus,
-      description: flavor_text_entries.find((x) => x.language.name === "es")
+      description: flavor_text_entries.find((x) => x.language.name === "en")
         .flavor_text,
     };
   }

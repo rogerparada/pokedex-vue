@@ -52,24 +52,6 @@ export default {
 			max = Math.floor(max);
 			return Math.floor(Math.random() * (max - min) + min);
 		},
-		getPokemonData() {
-			const fetchUrl = this.url + 'pokemon/' + this.random;
-			console.log(fetchUrl);
-			fetch(fetchUrl)
-				.then((result) => result.json())
-				.then((data) => {
-					//console.log(data);
-					this.pokemon = {
-						id: data.id,
-						name: data.name,
-						image: data.sprites.other.home.front_default,
-						types: data.types,
-					};
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		},
 
 		getData() {
 			(async () => {
@@ -91,7 +73,6 @@ export default {
 		};
 	},
 	created() {
-		//this.getPokemonData();
 		this.getData();
 	},
 
