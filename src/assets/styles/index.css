@@ -140,3 +140,14 @@ a :hover {
 	position: absolute;
 	top: 0;
 }
+
+.level {
+	color: white;
+	border-bottom-left-radius: var(--bs-card-border-radius);
+	border-bottom-right-radius: var(--bs-card-border-radius);
+	width: 100%;
+	background-color: red;
+	text-align: center;
+	position: relative;
+	bottom: 0;
+}

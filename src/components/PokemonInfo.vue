@@ -1,9 +1,9 @@
 <template>
 	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-0">
-		<div class="">
+		<div class="tw-w-96 tw-bg-white">
 			<PokemonFullCard :id="id" />
 		</div>
-		<div class="" v-if="pokemon != null">
+		<div class="tw-w-96 tw-bg-white" v-if="pokemon != null">
 			<EvolutionChain
 				v-if="pokemon.evolutions.length > 1"
 				:Evolutions="pokemon.evolutions"

@@ -94,7 +94,6 @@ export class Pokemon {
         evo.push(this.getEvo(item2));
       });
     });
-    console.log(evo);
     return evo;
   }
   getEvo(item) {
@@ -104,8 +103,42 @@ export class Pokemon {
     return {
       name: name,
       url: Global.Url + "pokemon/" + name,
-      trigger: tr != undefined ? tr.trigger.name : null,
+      trigger: tr != undefined ? this.getEvolutionTigger(tr) : null,
     };
+  }
+
+  getEvolutionTigger(obj) {
+    const name = obj.trigger.name;
+    let id;
+    let evolution;
+    switch (name) {
+      case "level-up":
+        id = 1;
+        evolution = this.selectLevelUpTrigger(obj);
+        break;
+      case "trade":
+        id = 2;
+        break;
+      case "use-item":
+        id = 3;
+        evolution = obj.item;
+        break;
+    }
+    return { id, name, evolution };
+  }
+
+  selectLevelUpTrigger(obj) {
+    return obj.min_affection != null
+      ? { min_affection: obj.min_affection, id: 1 }
+      : obj.min_beauty != null
+      ? { min_beauty: obj.min_beauty, id: 2 }
+      : obj.min_happiness != null
+      ? { min_happiness: obj.min_happiness, id: 3 }
+      : obj.min_level != null
+      ? { min_level: obj.min_level, id: 4 }
+      : location != null
+      ? { location: obj.location, id: 5 }
+      : null;
   }
 
   formatGeneration(generation) {
