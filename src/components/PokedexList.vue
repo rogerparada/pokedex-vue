@@ -44,6 +44,12 @@
 					/>
 				</div>
 			</div>
+			<PaginationControl
+				:totalItems="max"
+				:displayItems="numItems"
+				:baseUrl="`/list/pokedex/${generationId}`"
+				v-if="numItems < max"
+			/>
 		</div>
 	</div>
 </template>
@@ -51,10 +57,11 @@
 import axios from 'axios';
 import Global from '@/Global';
 import PokemonCard from './PokemonCard.vue';
+import PaginationControl from './controls/PaginationControl.vue';
 
 export default {
 	name: 'PokemonList',
-	components: { PokemonCard },
+	components: { PokemonCard, PaginationControl },
 	data() {
 		return {
 			generation: null,
@@ -100,7 +107,11 @@ export default {
 			if (gen === undefined) {
 				this.$router.push('/');
 			}
-			this.start = gen.start;
+			let p = this.$route.params.page
+				? (this.$route.params.page - 1) * this.numItems
+				: 0;
+
+			this.start = gen.start + p;
 			this.max = gen.pokemons;
 			this.generation = gen.name;
 			this.generationId = gen.id;
@@ -117,7 +128,7 @@ export default {
 			this.listType = this.$route.params.listType;
 			const id = this.$route.params.id;
 			const baseUrl = Global.Url;
-
+			console.log(this.$route.params);
 			switch (this.listType) {
 				case 'pokedex':
 					this.loadGeneration(id);

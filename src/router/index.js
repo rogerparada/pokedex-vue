@@ -25,8 +25,9 @@ const routes = [
     path: "/pokemon/:name",
     component: PokemonInfo,
   },
+
   {
-    path: "/list/:listType/:id",
+    path: "/list/:listType/:id/:page?",
     component: PokedexList,
   },
 ];
