@@ -1,21 +1,25 @@
 <template>
-	<nav class="tw-pt-3 tw-px-0 tw-pb-0">
-		<ul class="pagination">
+	<nav class="tw-pt-3 tw-px-0 tw-pb-0 tw-flex tw-justify-center">
+		<ul class="pagination tw-text-sm tw-font-thin" v-if="numPages <= 8">
 			<li class="page-item" v-if="prev">
 				<router-link
-					:to="baseUrl + '/' + (page - 1)"
+					:to="`${baseUrl}/${page - 1}?items=${displayItems}`"
 					class="page-link link-danger"
 					><span>&laquo;</span></router-link
 				>
 			</li>
 			<li class="page-item" v-for="n in numPages" :key="n">
-				<router-link :to="baseUrl + '/' + n" class="page-link link-secondary">
+				<router-link
+					:to="`${baseUrl}/${n}?items=${displayItems}`"
+					class="page-link link-secondary"
+				>
 					{{ n }}
 				</router-link>
 			</li>
+
 			<li class="page-item" v-if="next">
 				<router-link
-					:to="baseUrl + '/' + (page ? page + 1 : 2)"
+					:to="`${baseUrl}/${page ? page + 1 : 2}?items=${displayItems}`"
 					class="page-link link-danger"
 				>
 					<span>&raquo;</span>
@@ -73,6 +77,13 @@ export default {
 	},
 	updated() {
 		this.page = Number(this.$route.params.page);
+	},
+	watch: {
+		page(newValue) {
+			if (newValue > this.numPages) {
+				this.$router.push(this.baseUrl);
+			}
+		},
 	},
 };
 </script>

@@ -42,7 +42,7 @@
 
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<router-link class="dropdown-item" to="/">
+									<router-link class="dropdown-item" to="/all">
 										<span class="tw-font-bold tw-text-sm">All Pokemons</span>
 									</router-link>
 								</li>
@@ -73,7 +73,7 @@
 
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<router-link class="dropdown-item" to="/">
+									<router-link class="dropdown-item" to="/all">
 										<span class="tw-font-bold tw-text-sm">All Pokemons</span>
 									</router-link>
 								</li>

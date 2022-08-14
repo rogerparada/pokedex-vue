@@ -27,7 +27,12 @@ const routes = [
   },
 
   {
-    path: "/list/:listType/:id/:page?",
+    path: "/list/:listType?/:id?/:page?",
+    component: PokedexList,
+  },
+
+  {
+    path: "/all/:page?",
     component: PokedexList,
   },
 ];

@@ -17,127 +17,127 @@ const Global = {
     new PokemonType(
       1,
       "normal",
-      135,
+      115,
       "#8f99a1",
       require("@/assets/images/Icon_Normal.svg")
     ),
     new PokemonType(
       2,
       "fighting",
-      82,
+      61,
       "#f0a489",
       require("@/assets/images/Icon_Fighting.svg")
     ),
     new PokemonType(
       3,
       "flying",
-      140,
+      102,
       "#99b7e5",
       require("@/assets/images/Icon_Flying.svg")
     ),
     new PokemonType(
       4,
       "poison",
-      89,
+      69,
       "#b066cb",
       require("@/assets/images/Icon_Poison.svg")
     ),
     new PokemonType(
       5,
       "ground",
-      84,
+      67,
       "#e6703d",
       require("@/assets/images/Icon_Ground.svg")
     ),
     new PokemonType(
       6,
       "rock",
-      93,
+      65,
       "#c9b794",
       require("@/assets/images/Icon_Rock.svg")
     ),
     new PokemonType(
       7,
       "bug",
-      97,
+      84,
       "#89c207",
       require("@/assets/images/Icon_Bug.svg")
     ),
     new PokemonType(
       8,
       "ghost",
-      78,
+      51,
       "#4a6baa",
       require("@/assets/images/Icon_Ghost.svg")
     ),
     new PokemonType(
       9,
       "steel",
-      80,
+      54,
       "#4b8ca2",
       require("@/assets/images/Icon_Steel.svg")
     ),
     new PokemonType(
       10,
       "fire",
-      91,
+      71,
       "#ff944a",
       require("@/assets/images/Icon_Fire.svg")
     ),
     new PokemonType(
       11,
       "water",
-      169,
+      141,
       "#2d93d8",
       require("@/assets/images/Icon_Water.svg")
     ),
     new PokemonType(
       12,
       "grass",
-      129,
+      107,
       "#78C850",
       require("@/assets/images/Icon_Grass.svg")
     ),
     new PokemonType(
       13,
       "electric",
-      94,
+      57,
       "#fcd019",
       require("@/assets/images/Icon_Electric.svg")
     ),
     new PokemonType(
       14,
       "psychic",
-      125,
+      90,
       "#ff6478",
       require("@/assets/images/Icon_Psychic.svg")
     ),
     new PokemonType(
       15,
       "ice",
-      59,
+      41,
       "#53d1bf",
       require("@/assets/images/Icon_Ice.svg")
     ),
     new PokemonType(
       16,
       "dragon",
-      83,
+      56,
       "#0070c5",
       require("@/assets/images/Icon_Dragon.svg")
     ),
     new PokemonType(
       17,
       "dark",
-      81,
+      55,
       "#8f99a1",
       require("@/assets/images/Icon_Dark.svg")
     ),
     new PokemonType(
       18,
       "fairy",
-      74,
-      "#5b5366",
+      54,
+      "#e279ed",
       require("@/assets/images/Icon_Fairy.svg")
     ),
   ],

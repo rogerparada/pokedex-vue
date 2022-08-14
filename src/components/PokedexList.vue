@@ -32,7 +32,9 @@
 						<option value="50">50</option>
 						<option v-if="max >= 100" :value="'100'">100</option>
 						<option v-else :value="max">{{ max }}</option>
-						<option v-if="max > 100" :value="max">{{ max }}</option>
+						<option v-if="max > 100 && max < 200" :value="max">
+							{{ max }}
+						</option>
 					</select>
 				</div>
 			</div>
@@ -47,7 +49,7 @@
 			<PaginationControl
 				:totalItems="max"
 				:displayItems="numItems"
-				:baseUrl="`/list/pokedex/${generationId}`"
+				:baseUrl="baseUrl"
 				v-if="numItems < max"
 			/>
 		</div>
@@ -73,14 +75,23 @@ export default {
 			url: null,
 			listType: null,
 			icon: null,
+			total: 0,
+			baseUrl: this.$route.path,
 		};
 	},
 	props: {},
 	computed: {
-		showing: function () {
-			return this.numItems + this.start < this.max + this.start
+		showing() {
+			return this.numItems + this.start < this.total
 				? this.numItems + this.start
-				: this.max + this.start - 1;
+				: this.total;
+		},
+		maxList() {
+			return this.start + this.numItems >= this.total
+				? this.total - this.start + 1 >= 0
+					? this.total - this.start + 1
+					: 0
+				: this.numItems;
 		},
 	},
 	methods: {
@@ -94,6 +105,9 @@ export default {
 							break;
 						case 'types':
 							this.getByTypes(response.data.pokemon);
+							break;
+						default:
+							this.pokemons = response.data.results;
 							break;
 					}
 				})
@@ -113,44 +127,94 @@ export default {
 
 			this.start = gen.start + p;
 			this.max = gen.pokemons;
+			this.total = gen.start + gen.pokemons - 1;
 			this.generation = gen.name;
 			this.generationId = gen.id;
 			this.icon = gen.image;
 		},
+		loadAll() {
+			let p = this.$route.params.page
+				? (this.$route.params.page - 1) * this.numItems
+				: 0;
+
+			this.start = 1 + p;
+			this.max = Global.Max;
+			this.total = Global.Max;
+		},
 		getByTypes(pokemons) {
 			let pokes = pokemons.map((p) => p.pokemon);
-			this.max = pokes.length;
-			this.pokemons = pokes
-				.filter((p) => Number(p.url.split('/').reverse()[1]) <= Global.Max)
-				.slice(0, this.numItems);
+			let page = this.$route.params.page
+				? (this.$route.params.page - 1) * this.numItems
+				: 0;
+			this.pokemons = pokes.filter(
+				(p) => Number(p.url.split('/').reverse()[1]) <= Global.Max
+			);
+			this.max = this.pokemons.length;
+
+			this.pokemons = this.pokemons.slice(
+				page,
+				this.numItems + page < this.max ? this.numItems + page : this.max
+			);
+
+			console.log(page, this.numItems + page, this.max);
 		},
 		startPage() {
 			this.listType = this.$route.params.listType;
 			const id = this.$route.params.id;
 			const baseUrl = Global.Url;
-			console.log(this.$route.params);
-			switch (this.listType) {
-				case 'pokedex':
-					this.loadGeneration(id);
-					this.url = `${baseUrl}pokemon?limit=${this.numItems}&offset=${
+			const url = this.$route.path.split('/');
+			this.baseUrl = url.slice(0, url.length - 1).join('/');
+			if (this.listType) {
+				switch (this.listType) {
+					case 'pokedex':
+						this.loadGeneration(id);
+						this.url = `${baseUrl}pokemon?limit=${this.maxList}&offset=${
+							this.start > 1 ? this.start - 1 : 0
+						}`;
+						break;
+					case 'types':
+						console.log(`${baseUrl}type/${id}`);
+						this.url = `${baseUrl}type/${id}`;
+						break;
+				}
+			} else {
+				this.loadAll();
+				console.log(
+					'API URL',
+					`${baseUrl}pokemon?limit=${this.maxList}&offset=${
 						this.start > 1 ? this.start - 1 : 0
-					}`;
-					break;
-				case 'types':
-					this.url = `${baseUrl}type/${id}`;
-					break;
+					}`
+				);
+				this.url = `${baseUrl}pokemon?limit=${this.maxList}&offset=${
+					this.start > 1 ? this.start - 1 : 0
+				}`;
 			}
+
 			this.getPokemonList();
 		},
 	},
 	created() {
+		let items = this.$route.query.items;
+		let page = this.$route.params.page;
+		console.log('🚀 ~ file: PokedexList.vue this.$route', this.$route);
+		if (items) {
+			this.numItems = Number(items);
+		} else if (page) {
+			let route = `${this.$route.path}?items=50`;
+			this.$router.push(route);
+		} else {
+			let route = `${this.$route.path}/1?items=50`;
+			this.$router.push(route);
+		}
 		this.startPage();
 	},
 	watch: {
-		numItems() {
-			console.log(this.numItems);
-			console.log(this.url);
-			this.startPage();
+		numItems(newValue) {
+			let items = this.$route.query.items;
+			if (newValue != items) {
+				let route = this.$route.path;
+				this.$router.push(`${route}?items=${newValue}`);
+			}
 		},
 	},
 };
