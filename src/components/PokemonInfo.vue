@@ -4,6 +4,10 @@
 			<PokemonFullCard :id="id" />
 		</div>
 		<div class="tw-w-96 tw-bg-white" v-if="pokemon != null">
+			<div id="stats" class="">
+				<div id="description"></div>
+				<PokemonStats :stats="pokemon.stats.stadistics" />
+			</div>
 			<EvolutionChain
 				v-if="pokemon.evolutions.length > 1"
 				:Evolutions="pokemon.evolutions"
@@ -15,6 +19,8 @@
 <script>
 import PokemonFullCard from './PokemonFullCard.vue';
 import EvolutionChain from './EvolutionChain.vue';
+import PokemonStats from './PokemonStats.vue';
+import { Stadistics } from '../models/PokemonModel';
 import { Pokemon } from '@/api/Pokemon';
 import Global from '@/Global';
 
@@ -27,18 +33,20 @@ export default {
 			url: Global.Url,
 		};
 	},
-	components: { PokemonFullCard, EvolutionChain },
+	components: { PokemonFullCard, EvolutionChain, PokemonStats },
 	methods: {
 		getData() {
 			const p = new Pokemon();
 			(async () => {
 				let poke = await p.getPokemonFullData(this.url);
 				let { name, id, information } = poke;
-
+				let stats = new Stadistics(poke);
 				this.pokemon = {
 					name,
 					id,
 					evolutions: information.evolution,
+					stats,
+					information,
 				};
 			})();
 		},

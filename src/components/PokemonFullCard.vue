@@ -51,7 +51,7 @@
 					<span v-else class="tw-font-bold">{{ pokemon.name }}</span>
 					<span class="tw-font-light">{{ pokemon.information.name }}</span>
 				</div>
-				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-pt-3">
+				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-py-3">
 					<div class="tw-flex tw-flex-col tw-leading-7">
 						<span class="tw-text-base tw-leading-7">
 							{{ pokemon.stats.weight }}
@@ -72,17 +72,19 @@
 						>
 					</div>
 				</div>
-			</div>
-			<div id="stats">
-				<hr />
-				<div class="tw-mx-5 tw-font-light tw-text-sm tw-text-justify tw-italic">
+				<PokemonAbilities
+					:abilities="pokemon.stats.abilities"
+					:mainType="mainType"
+				/>
+				<hr class="tw-my-0" />
+				<div
+					class="tw-mx-5 tw-font-light tw-text-sm tw-text-justify tw-italic tw-py-3"
+				>
 					{{ pokemon.information.description }}
 				</div>
-				<div id="stats" class="">
-					<div id="description"></div>
-					<PokemonStats :stats="pokemon.stats.stadistics" />
-				</div>
+				<hr class="tw-my-0" />
 			</div>
+			<div id="stats"></div>
 		</div>
 	</div>
 </template>
@@ -91,8 +93,8 @@
 import { Pokemon } from '@/api/Pokemon';
 import Global from '../Global';
 import { Stadistics } from '../models/PokemonModel';
-import PokemonStats from './PokemonStats.vue';
 import TypeIcon from './TypeIcon.vue';
+import PokemonAbilities from './PokemonAbilities.vue';
 export default {
 	name: 'PokemonFullCard',
 	data() {
@@ -100,7 +102,6 @@ export default {
 			name: null,
 			url: Global.Url,
 			pokemon: null,
-
 			mainType: null,
 		};
 	},
@@ -115,8 +116,8 @@ export default {
 		},
 	},
 	components: {
-		PokemonStats,
 		TypeIcon,
+		PokemonAbilities,
 	},
 	methods: {
 		getData() {
