@@ -7,8 +7,8 @@
 			>
 				<strong>{{ id }}</strong>
 			</div>
-			<img :src="image" alt="" />
-			<div class="tw-capitalize tw-text-center tw-text-sm">
+			<img :src="image" :alt="pokemon.name" />
+			<div class="tw-capitalize tw-text-center tw-text-xs tw-pb-2">
 				{{ pokemon.name }}
 			</div>
 		</router-link>

@@ -38,16 +38,20 @@ export default {
 		getData() {
 			const p = new Pokemon();
 			(async () => {
-				let poke = await p.getPokemonFullData(this.url);
-				let { name, id, information } = poke;
-				let stats = new Stadistics(poke);
-				this.pokemon = {
-					name,
-					id,
-					evolutions: information.evolution,
-					stats,
-					information,
-				};
+				try {
+					let poke = await p.getPokemonFullData(this.url);
+					let { name, id, information } = poke;
+					let stats = new Stadistics(poke);
+					this.pokemon = {
+						name,
+						id,
+						evolutions: information.evolution,
+						stats,
+						information,
+					};
+				} catch (error) {
+					this.$router.push('/');
+				}
 			})();
 		},
 	},

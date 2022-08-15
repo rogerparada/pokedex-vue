@@ -7,7 +7,10 @@
 				:key="ptype.name"
 				:style="{ 'background-color': ptype.color }"
 			>
-				<router-link :to="`/list/types/${ptype.name}`" class="link-light">
+				<router-link
+					:to="`/list/types/${ptype.name}`"
+					class="link-light tw-text-xs"
+				>
 					{{ ptype.name }}
 				</router-link>
 			</div>
@@ -21,7 +24,7 @@
 			>
 				<router-link
 					:to="`/list/types/${ptype.name}`"
-					class="link-light tw-capitalize"
+					class="link-light tw-capitalize tw-text-xs"
 				>
 					{{ ptype.name }}
 				</router-link>

@@ -83,15 +83,20 @@
 							<router-link class="nav-link" to="/About">About</router-link>
 						</li>
 					</ul>
-					<form class="d-flex" role="search">
+					<form
+						class="d-flex tw-font-light tw-ml-3"
+						role="search"
+						@submit.prevent="goSearch"
+					>
 						<input
-							class="form-control me-2"
+							class="form-control me-2 tw-font-light tw-text-sm"
 							type="search"
 							placeholder="Search"
 							aria-label="Search"
+							v-model="searchText"
 						/>
-						<button class="btn btn-outline-success" type="submit">
-							Search
+						<button class="btn btn-outline-danger" type="submit">
+							<font-awesome-icon icon="fa-solid fa-search" />
 						</button>
 					</form>
 				</div>
@@ -108,10 +113,15 @@ export default {
 		return {
 			generations: Global.Generations,
 			types: Global.Types,
+			searchText: null,
 		};
 	},
-	methods: {},
-	created() {},
+	methods: {
+		goSearch() {
+			let pokemon = this.searchText.toLowerCase();
+			this.$router.push(`/pokemon/${pokemon}`);
+		},
+	},
 };
 </script>
 
