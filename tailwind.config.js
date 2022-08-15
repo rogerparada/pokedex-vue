@@ -2,6 +2,7 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
+  important: true,
   prefix: "tw-",
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {

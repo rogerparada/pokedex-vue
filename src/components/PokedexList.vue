@@ -46,12 +46,14 @@
 					/>
 				</div>
 			</div>
-			<PaginationControl
-				:totalItems="max"
-				:displayItems="numItems"
-				:baseUrl="baseUrl"
-				v-if="numItems < max"
-			/>
+			<div class="pag tw-flex tw-flex-wrap tw-justify-center">
+				<PaginationControl
+					:totalItems="max"
+					:displayItems="numItems"
+					:baseUrl="baseUrl"
+					v-if="numItems < max"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -211,10 +213,14 @@ export default {
 	watch: {
 		numItems(newValue) {
 			let items = this.$route.query.items;
+			console.log('Numitems', items, newValue);
 			if (newValue != items) {
+				console.log('Numitems', items, newValue);
+
 				let route = this.$route.path;
 				this.$router.push(`${route}?items=${newValue}`);
 			}
+			this.startPage();
 		},
 	},
 };

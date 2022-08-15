@@ -2,14 +2,10 @@
 	<div class="abilities tw-pb-3" v-if="abilities != null">
 		<div
 			id="Abilities"
-			:class="
-				abilities
-					? `tw-grid tw-grid-cols-${abilities.length} tw-flex tw-mx-3 tw-gap-0`
-					: ''
-			"
+			class="tw-flex tw-flex-wrap tw-justify-center tw-mx-3 tw-gap-0"
 		>
 			<div
-				class="tw-font-light tw-text-sm tw-p-1 tw-text-white"
+				class="tw-font-light tw-text-xs tw-p-1 tw-text-white tw-flex-1"
 				v-for="ability in abilities"
 				:key="ability.slot"
 				:style="{ 'background-color': mainType.color }"

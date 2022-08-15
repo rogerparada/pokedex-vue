@@ -35,6 +35,11 @@ const routes = [
     path: "/all/:page?",
     component: PokedexList,
   },
+  {
+    path: "*",
+    name: "error",
+    component: HomePokedex,
+  },
 ];
 
 const router = new VueRouter({
