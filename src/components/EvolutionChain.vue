@@ -10,7 +10,7 @@
 					<router-link :to="item.url" class="link link-dark">
 						<img :src="item.image" :alt="item.name" />
 						<div
-							class="tw-capitalize tw-text-center tw-text-sm tw-font-thin tw-mb-2"
+							class="tw-capitalize tw-text-center tw-text-xs tw-font-thin tw-mb-2"
 						>
 							<span class="tw-font-light">{{ item.id }}</span> {{ item.name }}
 						</div>
@@ -19,8 +19,8 @@
 
 				<EvolutionTrigger :trigger="item.trigger" v-if="item.trigger != null" />
 
-				<div class="level tw-flex tw-justify-center" v-else>
-					<span class="tw-font-bold tw-text-sm">Base Form</span>
+				<div class="level tw-flex tw-justify-center tw-items-center" v-else>
+					<span class="tw-font-bold tw-text-xs">Base Form</span>
 				</div>
 			</div>
 		</div>

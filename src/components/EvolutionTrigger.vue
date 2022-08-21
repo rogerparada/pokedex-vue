@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="level tw-text-sm tw-flex tw-items-center tw-justify-center tw-gap-2"
+		class="level tw-text-xs tw-flex tw-items-center tw-justify-center tw-gap-2"
 		v-if="name != null"
 	>
 		<img
@@ -81,10 +81,11 @@ export default {
 				case 2:
 					this.name = 'Trade';
 					this.images.push(trade);
+					this.value = 'Trade';
 					break;
 				case 3:
-					this.name = '+ ';
-					this.value = this.formatName(this.trigger.evolution.name);
+					this.name = 'Item';
+					this.value = '+ ' + this.formatName(this.trigger.evolution.name);
 					break;
 			}
 		}
