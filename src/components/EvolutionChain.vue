@@ -6,15 +6,19 @@
 			v-if="Evolutions != null"
 		>
 			<div class="card tw-w-32" v-for="(item, index) in pokemon" :key="index">
-				<router-link :to="item.url" class="link link-dark tw-mx-2 tw-mt-2">
-					<img :src="item.image" :alt="item.name" />
-					<div class="tw-capitalize tw-text-center tw-text-sm tw-font-thin">
-						<span class="tw-font-light">{{ item.id }}</span> {{ item.name }}
-					</div>
-				</router-link>
-				<div class="tw-flex tw-justify-center" v-if="item.trigger != null">
-					<EvolutionTrigger :trigger="item.trigger" />
+				<div class="">
+					<router-link :to="item.url" class="link link-dark">
+						<img :src="item.image" :alt="item.name" />
+						<div
+							class="tw-capitalize tw-text-center tw-text-sm tw-font-thin tw-mb-2"
+						>
+							<span class="tw-font-light">{{ item.id }}</span> {{ item.name }}
+						</div>
+					</router-link>
 				</div>
+
+				<EvolutionTrigger :trigger="item.trigger" v-if="item.trigger != null" />
+
 				<div class="level tw-flex tw-justify-center" v-else>
 					<span class="tw-font-bold tw-text-sm">Base Form</span>
 				</div>

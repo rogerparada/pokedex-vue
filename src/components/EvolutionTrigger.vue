@@ -1,18 +1,31 @@
 <template>
-	<div class="level" v-if="name != null">
-		<div class="tw-text-sm">
-			<span class="tw-font-bold">{{ name }}</span>
-			<span class="tw-capitalize">{{ value }}</span>
-		</div>
+	<div
+		class="level tw-text-sm tw-flex tw-items-center tw-justify-center tw-gap-2"
+		v-if="name != null"
+	>
+		<img
+			:src="img"
+			v-for="(img, index) in images"
+			:alt="name"
+			:key="name + index"
+			class="tw-shrink"
+		/>
+		<span class="tw-shrink">
+			{{ value }}
+		</span>
 	</div>
 </template>
 
 <script>
+import levelUp from '../assets/images/level-up.svg';
+import trade from '../assets/images/trade.svg';
+
 export default {
 	name: 'EvolutionTrigger',
 	data() {
 		return {
 			name: null,
+			images: [],
 			value: null,
 		};
 	},
@@ -32,21 +45,26 @@ export default {
 				case 1:
 					console.log(tr);
 					this.name = 'Level up + Affection: ';
+					this.images.push(levelUp);
 					this.value = tr.evolution.min_affection;
 					break;
 				case 2:
+					this.images.push(levelUp);
 					this.name = 'Level up + Beauty: ';
 					this.value = tr.evolution.min_beauty;
 					break;
 				case 3:
+					this.images.push(levelUp);
 					this.name = 'Level up + Happiness: ';
 					this.value = tr.evolution.min_happiness;
 					break;
 				case 4:
+					this.images.push(levelUp);
 					this.name = 'Level ';
 					this.value = tr.evolution.min_level;
 					break;
 				case 5:
+					this.images.push(levelUp);
 					this.name = 'Level up in: ';
 					this.value = this.formatName(tr.evolution.location.name);
 					break;
@@ -59,6 +77,10 @@ export default {
 			switch (this.trigger.id) {
 				case 1:
 					this.getLevelTrigger(this.trigger);
+					break;
+				case 2:
+					this.name = 'Trade';
+					this.images.push(trade);
 					break;
 				case 3:
 					this.name = '+ ';

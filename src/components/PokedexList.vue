@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="container tw-md:mx-auto tw-w-auto">
+		<div class="md:tw-mx-auto lg:tw-mx-5 tw-w-auto">
 			<div id="GenerationBanner" v-if="generation != null">
 				<div
 					class="tw-text-white tw-text-center mb-3 tw-flex tw-flex-row tw-justify-center tw-gap-3"

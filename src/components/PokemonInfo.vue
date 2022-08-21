@@ -50,7 +50,7 @@ export default {
 						information,
 					};
 				} catch (error) {
-					this.$router.push('/');
+					this.$router.push(`/error?pokemon=${this.$route.params.name}`);
 				}
 			})();
 		},

@@ -151,17 +151,8 @@ a :hover {
 	height: 1.5rem;
 	background-color: red;
 	text-align: center;
-	--level-line: 1.5rem;
-	line-height: var(--level-line);
 }
 .level img {
 	margin-left: 0.5rem;
 	height: 80%;
-	float: left;
-}
-
-.level span {
-	margin: 0 auto;
-	line-height: var(--level-line);
-	float: left;
 }

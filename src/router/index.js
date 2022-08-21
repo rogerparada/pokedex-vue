@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomePokedex from "../components/HomePokedex";
 import PokedexList from "../components/PokedexList";
 import PokemonInfo from "../components/PokemonInfo";
+import ErrorPage from "../components/ErrorPage";
 
 Vue.use(VueRouter);
 
@@ -36,9 +37,14 @@ const routes = [
     component: PokedexList,
   },
   {
+    path: "/error",
+    name: "error",
+    component: ErrorPage,
+  },
+  {
     path: "*",
     name: "error",
-    component: HomePokedex,
+    component: ErrorPage,
   },
 ];
 
