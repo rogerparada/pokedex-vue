@@ -24,19 +24,11 @@
 					srcset=""
 				/>
 			</div>
-			<div
-				id="pokeImage"
-				class="tw-mx-auto tw-w-full tw-h-72 ml-5 mr-5 tw-flex tw-justify-center"
-			>
-				<router-link
-					:to="pokeUrl"
-					v-if="pokeUrl != null"
-					class="tw-flex tw-justify-center"
-				>
-					<img class="tw-h-full" :src="pokemon.image" />
-				</router-link>
-				<img class="tw-h-full" :src="pokemon.image" v-else />
-			</div>
+			<ImageSelector
+				:name="pokemon.name"
+				:url="pokeUrl"
+				:gender_differences="pokemon.information.gender_differences"
+			/>
 		</div>
 		<div id="bodyCard">
 			<div id="name" class="tw-capitalize tw-text-center">
@@ -92,9 +84,11 @@
 <script>
 import { Pokemon } from '@/api/Pokemon';
 import Global from '../Global';
-import { Stadistics } from '../models/PokemonModel';
+import { Statistics } from '../models/PokemonModel';
 import TypeIcon from './TypeIcon.vue';
 import PokemonAbilities from './PokemonAbilities.vue';
+import ImageSelector from './ImageSelector.vue';
+
 export default {
 	name: 'PokemonFullCard',
 	data() {
@@ -118,6 +112,7 @@ export default {
 	components: {
 		TypeIcon,
 		PokemonAbilities,
+		ImageSelector,
 	},
 	methods: {
 		getData() {
@@ -125,7 +120,7 @@ export default {
 			(async () => {
 				let poke = await p.getPokemonFullData(this.url);
 				let { name, id, image, base_experience, types, information } = poke;
-				let stats = new Stadistics(poke);
+				let stats = new Statistics(poke);
 				this.pokemon = {
 					name,
 					id,

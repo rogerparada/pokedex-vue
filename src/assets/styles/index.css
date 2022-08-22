@@ -141,6 +141,48 @@ a :hover {
 	top: 0;
 }
 
+#pokeImage a {
+	cursor: pointer;
+}
+
+@keyframes grow {
+	10% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(0.8);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+#genSelector {
+	position: absolute;
+	left: 1rem;
+	bottom: 0;
+	cursor: pointer;
+	animation: grow 1s linear infinite;
+	animation-play-state: paused;
+}
+
+#genSelector:hover {
+	animation-play-state: running;
+}
+
+#shiny {
+	position: absolute;
+	right: 1rem;
+	bottom: 0;
+	cursor: pointer;
+	animation: grow 1s linear infinite;
+	animation-play-state: paused;
+}
+
+#shiny:hover {
+	animation-play-state: running;
+}
+
 .level {
 	color: white;
 	border-bottom-left-radius: var(--bs-card-border-radius);

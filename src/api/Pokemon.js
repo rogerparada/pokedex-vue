@@ -70,13 +70,20 @@ export class Pokemon {
     const result = await fetch(url);
     const data = await result.json();
 
-    const { generation, genera, flavor_text_entries, evolution_chain } = data;
+    const {
+      generation,
+      genera,
+      flavor_text_entries,
+      evolution_chain,
+      has_gender_differences,
+    } = data;
     return {
       generation: this.formatGeneration(generation.name),
       name: genera.filter((x) => x.language.name === "en")[0].genus,
       description: flavor_text_entries.find((x) => x.language.name === "en")
         .flavor_text,
       evolution: await this.getEvolutions(evolution_chain.url),
+      gender_differences: has_gender_differences,
     };
   }
 
@@ -103,11 +110,11 @@ export class Pokemon {
     return {
       name: name,
       url: Global.Url + "pokemon/" + name,
-      trigger: tr != undefined ? this.getEvolutionTigger(tr) : null,
+      trigger: tr != undefined ? this.getEvolutionTrigger(tr) : null,
     };
   }
 
-  getEvolutionTigger(obj) {
+  getEvolutionTrigger(obj) {
     const name = obj.trigger.name;
     let id;
     let evolution;

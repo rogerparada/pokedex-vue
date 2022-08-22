@@ -5,10 +5,10 @@
 			class="tw-flex tw-flex-wrap tw-justify-center tw-gap-3"
 			v-if="Evolutions != null"
 		>
-			<div class="card tw-w-32" v-for="(item, index) in pokemon" :key="index">
+			<div class="card tw-w-24" v-for="(item, index) in pokemon" :key="index">
 				<div class="">
 					<router-link :to="item.url" class="link link-dark">
-						<img :src="item.image" :alt="item.name" />
+						<img :src="item.image" :alt="item.name" :title="item.name" />
 						<div
 							class="tw-capitalize tw-text-center tw-text-xs tw-font-thin tw-mb-2"
 						>

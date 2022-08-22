@@ -6,8 +6,9 @@
 		<div class="tw-w-96 tw-bg-white" v-if="pokemon != null">
 			<div id="stats" class="">
 				<div id="description"></div>
-				<PokemonStats :stats="pokemon.stats.stadistics" />
+				<PokemonStats :stats="pokemon.stats.statistics" />
 			</div>
+
 			<EvolutionChain
 				v-if="pokemon.evolutions.length > 1"
 				:Evolutions="pokemon.evolutions"
@@ -20,7 +21,7 @@
 import PokemonFullCard from './PokemonFullCard.vue';
 import EvolutionChain from './EvolutionChain.vue';
 import PokemonStats from './PokemonStats.vue';
-import { Stadistics } from '../models/PokemonModel';
+import { Statistics } from '../models/PokemonModel';
 import { Pokemon } from '@/api/Pokemon';
 import Global from '@/Global';
 
@@ -33,7 +34,11 @@ export default {
 			url: Global.Url,
 		};
 	},
-	components: { PokemonFullCard, EvolutionChain, PokemonStats },
+	components: {
+		PokemonFullCard,
+		EvolutionChain,
+		PokemonStats,
+	},
 	methods: {
 		getData() {
 			const p = new Pokemon();
@@ -41,7 +46,7 @@ export default {
 				try {
 					let poke = await p.getPokemonFullData(this.url);
 					let { name, id, information } = poke;
-					let stats = new Stadistics(poke);
+					let stats = new Statistics(poke);
 					this.pokemon = {
 						name,
 						id,
