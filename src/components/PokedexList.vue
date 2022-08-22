@@ -1,21 +1,13 @@
 <template>
-	<div class="tw-bg-red-600 tw-pt-5">
-		<div class="md:tw-mx-auto lg:tw-mx-5 tw-mb-3 tw-w-auto tw-text-red-600">
-			<div id="GenerationBanner" v-if="generation != null">
-				<div
-					class="tw-text-white tw-text-center mb-3 tw-flex tw-flex-row tw-justify-center tw-gap-3"
-				>
-					<span class="tw-text-4xl tw-font-extrabold">{{ generation }}</span>
-					<img :src="icon" :alt="generation" class="tw-w-10" />
-				</div>
-				<div class="tw-text-white tw-text-center mb-3">
-					Showing from <span class="tw-font-bold">{{ start }}</span>
-					to
-					<span class="tw-font-bold">{{ showing }}</span> | Pokemons in this
-					generation
-					<span class="tw-font-bold">{{ max }}</span>
-				</div>
-				<div class="tw-text-center tw-mb-3" v-if="pokemons !== null"></div>
+	<div class="tw-bg-red-600 tw-py-5">
+		<div class="md:tw-mx-auto lg:tw-mx-5 tw-w-auto tw-text-red-600">
+			<ListBanner :pokeType="pokeType" :generation="generation" />
+			<div class="tw-text-white tw-text-center mb-3" v-if="generation != null">
+				Showing from <span class="tw-font-bold">{{ start }}</span>
+				to
+				<span class="tw-font-bold">{{ showing }}</span> | Pokemons in this
+				generation
+				<span class="tw-font-bold">{{ max }}</span>
 			</div>
 			<div class="tw-w-4/5 tw-mx-auto tw-pb-3">
 				<div class="input-group">
@@ -62,23 +54,23 @@ import axios from 'axios';
 import Global from '@/Global';
 import PokemonCard from './PokemonCard.vue';
 import PaginationControl from './controls/PaginationControl.vue';
+import ListBanner from './ListBanner.vue';
 
 export default {
 	name: 'PokemonList',
-	components: { PokemonCard, PaginationControl },
+	components: { PokemonCard, PaginationControl, ListBanner },
 	data() {
 		return {
 			generation: null,
-			generationId: 0,
 			pokemons: null,
 			start: 0,
 			numItems: 50,
 			max: 0,
 			url: null,
 			listType: null,
-			icon: null,
 			total: 0,
 			baseUrl: this.$route.path,
+			pokeType: null,
 		};
 	},
 	props: {},
@@ -130,9 +122,7 @@ export default {
 			this.start = gen.start + p;
 			this.max = gen.pokemons;
 			this.total = gen.start + gen.pokemons - 1;
-			this.generation = gen.name;
-			this.generationId = gen.id;
-			this.icon = gen.image;
+			this.generation = { name: gen.name, id: gen.id, icon: gen.image };
 		},
 		loadAll() {
 			let p = this.$route.params.page
@@ -157,8 +147,6 @@ export default {
 				page,
 				this.numItems + page < this.max ? this.numItems + page : this.max
 			);
-
-			console.log(page, this.numItems + page, this.max);
 		},
 		startPage() {
 			this.listType = this.$route.params.listType;
@@ -175,7 +163,9 @@ export default {
 						}`;
 						break;
 					case 'types':
-						console.log(`${baseUrl}type/${id}`);
+						this.pokeType = Global.Types.find(
+							(x) => x.name == id || x.id == id
+						);
 						this.url = `${baseUrl}type/${id}`;
 						break;
 				}
@@ -198,7 +188,7 @@ export default {
 	created() {
 		let items = this.$route.query.items;
 		let page = this.$route.params.page;
-		console.log('🚀 ~ file: PokedexList.vue this.$route', this.$route);
+
 		if (items) {
 			this.numItems = Number(items);
 		} else if (page) {
@@ -213,7 +203,7 @@ export default {
 	watch: {
 		numItems(newValue) {
 			let items = this.$route.query.items;
-			console.log('Numitems', items, newValue);
+
 			if (newValue != items) {
 				console.log('Numitems', items, newValue);
 
