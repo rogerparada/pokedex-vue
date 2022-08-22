@@ -1,18 +1,22 @@
 <template>
-	<div id="app">
+	<div id="app" class="tw-bg-white">
 		<MenuComponent />
-		<section class="md:tw-mt-5">
+		<hr class="tw-m-0" />
+		<section class="tw-bg-white">
 			<router-view :key="$route.path" />
 		</section>
+		<FooterComponent />
 	</div>
 </template>
 <script>
 import MenuComponent from '@/components/MenuComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
 
 export default {
 	name: 'App',
 	components: {
 		MenuComponent,
+		FooterComponent,
 	},
 };
 </script>

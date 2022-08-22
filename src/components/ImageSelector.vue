@@ -1,7 +1,7 @@
 <template>
 	<div
 		id="pokeImage"
-		class="tw-mx-auto tw-w-full tw-h-72 ml-5 mr-5 tw-flex tw-justify-center"
+		class="tw-mx-auto tw-w-full tw-h-72 tw-p-2 tw-flex tw-justify-center"
 	>
 		<router-link :to="url" v-if="url != null" class="tw-flex tw-justify-center">
 			<img class="tw-h-full" :src="image" />

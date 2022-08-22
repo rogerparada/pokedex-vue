@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<div class="md:tw-mx-auto lg:tw-mx-5 tw-w-auto">
+	<div class="tw-bg-red-600 tw-pt-5">
+		<div class="md:tw-mx-auto lg:tw-mx-5 tw-mb-3 tw-w-auto tw-text-red-600">
 			<div id="GenerationBanner" v-if="generation != null">
 				<div
 					class="tw-text-white tw-text-center mb-3 tw-flex tw-flex-row tw-justify-center tw-gap-3"
@@ -19,7 +19,7 @@
 			</div>
 			<div class="tw-w-4/5 tw-mx-auto tw-pb-3">
 				<div class="input-group">
-					<span for="items" class="input-group-text tw-font-bold tw-text-white"
+					<span for="items" class="input-group-text tw-font-bold tw-text-black"
 						>Items:</span
 					>
 					<select

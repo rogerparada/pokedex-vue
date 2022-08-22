@@ -4,10 +4,10 @@
 		class="tw-mx-0 md:tw-mx-auto tw-flex tw-flex-col"
 		v-if="pokemon != null"
 	>
-		<div id="Card" class="tw-p-0 tw-w-96 tw-h-72 tw-mx-auto bg-white">
+		<div id="Card" class="tw-p-0 tw-w-full tw-h-72 tw-mx-auto tw-bg-white">
 			<div
 				id="typeFrame"
-				class="tw-w-full tw-h-52"
+				class="tw-w-full tw-h-52 tw-p-2"
 				:style="{ 'background-color': mainType.color }"
 			></div>
 			<div
@@ -77,7 +77,6 @@
 				</div>
 				<hr class="tw-my-0" />
 			</div>
-			<div id="stats"></div>
 		</div>
 	</div>
 </template>

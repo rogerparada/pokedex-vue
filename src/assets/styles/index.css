@@ -117,6 +117,8 @@ a :hover {
 	border-bottom-left-radius: 10px;
 	color: white;
 	padding: 5px;
+	border-right: 1px solid white;
+	margin-right: 0px;
 }
 
 .pokeGeneration {
@@ -134,6 +136,8 @@ a :hover {
 	display: flex;
 	background-color: white;
 	position: relative;
+	border: 1px solid #eeeeee;
+	color: inherit;
 }
 
 #pokeImage {

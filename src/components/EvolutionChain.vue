@@ -1,5 +1,5 @@
 <template>
-	<div class="tw-w-96 tw-bg-white tw-p-3">
+	<div class="tw-w-full tw-bg-white tw-p-3">
 		<div class="tw-font-bold tw-text-center tw-mb-3">Evolution chain</div>
 		<div
 			class="tw-flex tw-flex-wrap tw-justify-center tw-gap-3"

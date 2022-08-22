@@ -1,5 +1,5 @@
 <template>
-	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-0">
+	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-0 md:tw-pt-3">
 		<div class="tw-w-96 tw-bg-white">
 			<PokemonFullCard :id="id" />
 		</div>

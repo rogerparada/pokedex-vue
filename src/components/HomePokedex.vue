@@ -1,5 +1,5 @@
 <template>
-	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-5">
+	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-5 md:tw-pt-3">
 		<div class="tw-w-96 tw-bg-white" v-if="pokemon != null">
 			<PokemonFullCard :id="pokemon.id" :pokeUrl="'/pokemon/' + pokemon.name" />
 		</div>
