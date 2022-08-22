@@ -56,21 +56,19 @@ export default {
 
 			const response = await fetch(`${Global.Url}pokemon/${this.name}`);
 			const data = await response.json();
-			console.log(data);
+
 			this.images = data.sprites.other.home;
 			this.image = this.images.front_default;
 		},
 		changeGen() {
 			this.male = !this.male;
-			this.image =
-				this.images != null
-					? this.male
-						? this.images.front_default
-						: this.images.front_female
-					: null;
+			this.changeImage();
 		},
 		changeShiny() {
 			this.shiny = !this.shiny;
+			this.changeImage();
+		},
+		changeImage() {
 			this.image =
 				this.images != null
 					? this.shiny
@@ -81,6 +79,8 @@ export default {
 						? this.images.front_default
 						: this.images.front_female
 					: null;
+
+			this.$emit('change', this.gender_differences, this.male, this.shiny);
 		},
 	},
 

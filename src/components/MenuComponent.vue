@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<nav class="navbar navbar-expand-lg bg-light">
-			<div class="container-fluid">
+			<div class="container">
 				<router-link class="brand navbar-brand" to="/">PokedexVue</router-link>
 				<button
 					class="navbar-toggler"

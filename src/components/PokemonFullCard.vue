@@ -1,7 +1,7 @@
 <template>
 	<div
 		id="PokemonInfo"
-		class="tw-w-96 tw-mx-auto tw-flex tw-flex-col"
+		class="tw-mx-0 md:tw-mx-auto tw-flex tw-flex-col"
 		v-if="pokemon != null"
 	>
 		<div id="Card" class="tw-p-0 tw-w-96 tw-h-72 tw-mx-auto bg-white">
@@ -28,6 +28,7 @@
 				:name="pokemon.name"
 				:url="pokeUrl"
 				:gender_differences="pokemon.information.gender_differences"
+				@change="(g, m, s) => changeName(g, m, s)"
 			/>
 		</div>
 		<div id="bodyCard">
@@ -132,6 +133,19 @@ export default {
 				};
 				this.mainType = types[0];
 			})();
+		},
+		changeName(g, m, s) {
+			if (g) {
+				this.pokemon.name = s
+					? m
+						? this.name + ' (shiny male)'
+						: this.name + ' (shiny female)'
+					: m
+					? this.name + ' (male)'
+					: this.name + ' (female)';
+			} else {
+				this.pokemon.name = s ? this.name + ' (shiny)' : this.name;
+			}
 		},
 	},
 	created() {

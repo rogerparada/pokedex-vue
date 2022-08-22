@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<MenuComponent />
-		<section>
+		<section class="md:tw-mt-5">
 			<router-view :key="$route.path" />
 		</section>
 	</div>
