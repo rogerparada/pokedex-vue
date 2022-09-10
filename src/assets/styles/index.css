@@ -89,6 +89,8 @@ a :hover {
 	text-transform: capitalize;
 	text-align: center;
 	width: 100%;
+	position: absolute;
+	bottom: 0;
 }
 
 .doubleType {
@@ -96,6 +98,8 @@ a :hover {
 	text-transform: capitalize;
 	text-align: center;
 	width: 100%;
+	position: absolute;
+	bottom: 0;
 }
 
 .doubleType :first-child {
