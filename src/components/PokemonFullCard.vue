@@ -82,15 +82,15 @@
 </template>
 
 <script>
-import { Pokemon } from '@/api/Pokemon';
-import Global from '../Global';
-import { Statistics } from '../models/PokemonModel';
-import TypeIcon from './TypeIcon.vue';
-import PokemonAbilities from './PokemonAbilities.vue';
-import ImageSelector from './ImageSelector.vue';
+import { Pokemon } from "@/api/Pokemon";
+import Global from "../Global";
+import { Statistics } from "../models/PokemonModel";
+import TypeIcon from "./TypeIcon.vue";
+import PokemonAbilities from "./PokemonAbilities.vue";
+import ImageSelector from "./ImageSelector.vue";
 
 export default {
-	name: 'PokemonFullCard',
+	name: "PokemonFullCard",
 	data() {
 		return {
 			name: null,
@@ -131,19 +131,21 @@ export default {
 					information,
 				};
 				this.mainType = types[0];
+				this.name = name;
 			})();
 		},
+
 		changeName(g, m, s) {
 			if (g) {
 				this.pokemon.name = s
 					? m
-						? this.name + ' (shiny male)'
-						: this.name + ' (shiny female)'
+						? this.name + " (shiny male)"
+						: this.name + " (shiny female)"
 					: m
-					? this.name + ' (male)'
-					: this.name + ' (female)';
+					? this.name + " (male)"
+					: this.name + " (female)";
 			} else {
-				this.pokemon.name = s ? this.name + ' (shiny)' : this.name;
+				this.pokemon.name = s ? this.name + " (shiny)" : this.name;
 			}
 		},
 	},
@@ -151,8 +153,8 @@ export default {
 		this.name = this.$route.params.name;
 		this.url =
 			this.id != null
-				? this.url + 'pokemon/' + this.id
-				: this.url + 'pokemon/' + this.name;
+				? this.url + "pokemon/" + this.id
+				: this.url + "pokemon/" + this.name;
 		this.getData();
 	},
 };

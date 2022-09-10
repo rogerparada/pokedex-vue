@@ -9,27 +9,35 @@
 		<img class="tw-h-full" :src="image" v-else />
 		<div v-if="gender_differences">
 			<div id="genSelector" v-if="genreImg != null">
-				<img :src="genreImg" alt="Genre" class="tw-w-10" @click="changeGen()" />
+				<img :src="genreImg" alt="Genre" class="tw-w-10" />
+				<input
+					id=""
+					name=""
+					type="checkbox"
+					title="Male/Female"
+					v-model="genre"
+				/>
 			</div>
 		</div>
-		<div id="shiny" v-if="shinyImg != null">
-			<img :src="shinyImg" alt="Shiny" class="tw-w-10" @click="changeShiny()" />
+		<div id="shiny" v-if="shinyImg != null" class="">
+			<img :src="shinyImg" alt="Shiny" class="tw-w-10" />
+			<input id="" name="" type="checkbox" title="Shiny" v-model="shiny" />
 		</div>
 	</div>
 </template>
 
 <script>
-import Global from '@/Global';
-import imgShiny from '../assets/images/shiny.svg';
-import imgGenre from '../assets/images/genre.svg';
+import Global from "@/Global";
+import imgShiny from "../assets/images/shiny.svg";
+import imgGenre from "../assets/images/genre.svg";
 
 export default {
-	name: 'ImageSelector',
+	name: "ImageSelector",
 	data() {
 		return {
 			image: null,
 			images: null,
-			male: true,
+			genre: false,
 			shiny: false,
 			genreImg: null,
 			shinyImg: null,
@@ -60,34 +68,67 @@ export default {
 			this.images = data.sprites.other.home;
 			this.image = this.images.front_default;
 		},
-		changeGen() {
-			this.male = !this.male;
-			this.changeImage();
-		},
-		changeShiny() {
-			this.shiny = !this.shiny;
-			this.changeImage();
-		},
 		changeImage() {
 			this.image =
 				this.images != null
 					? this.shiny
-						? this.male
-							? this.images.front_shiny
-							: this.images.front_shiny_female
-						: this.male
-						? this.images.front_default
-						: this.images.front_female
+						? this.genre
+							? this.images.front_shiny_female
+							: this.images.front_shiny
+						: this.genre
+						? this.images.front_female
+						: this.images.front_default
 					: null;
 
-			this.$emit('change', this.gender_differences, this.male, this.shiny);
+			this.$emit("change", this.gender_differences, this.genre, this.shiny);
 		},
 	},
-
+	watch: {
+		shiny() {
+			this.changeImage();
+		},
+		genre() {
+			this.changeImage();
+		},
+	},
 	created() {
 		this.getImages();
 	},
 };
 </script>
 
-<style></style>
+<style>
+input[type="checkbox"] {
+	font-size: 10px;
+	appearance: none;
+	width: 40px !important;
+	height: 20px !important;
+	background-color: #eee;
+	border-radius: 10px !important;
+	position: relative !important;
+	cursor: pointer;
+	outline: none;
+	transition: 0.2s all ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+	background-color: rgb(255, 0, 0) !important;
+}
+
+input[type="checkbox"]::after {
+	width: 20px;
+	height: 20px;
+	content: "";
+	position: absolute !important;
+	border-radius: 100%;
+	background-color: #fff !important;
+	box-shadow: 0 0 3px rgb(0, 0, 0.3);
+	transform: scale(0.7);
+	left: 0;
+	transition: 0.2s all ease-in-out;
+}
+
+input[type="checkbox"]:checked::after {
+	left: calc(100% - 20px);
+}
+</style>
