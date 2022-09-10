@@ -39,9 +39,17 @@
 						v-if="pokeUrl != null"
 						class="link link-dark"
 					>
-						<span class="tw-font-bold">{{ pokemon.name }}</span>
+						<span class="tw-font-bold"
+							>{{ pokemon.name }}
+							<font-awesome-icon :icon="icon" v-if="icon != null" />
+							<font-awesome-icon :icon="shiny" v-if="shiny != null" />
+						</span>
 					</router-link>
-					<span v-else class="tw-font-bold">{{ pokemon.name }}</span>
+					<span v-else class="tw-font-bold"
+						>{{ pokemon.name }}
+						<font-awesome-icon :icon="icon" v-if="icon != null" />
+						<font-awesome-icon :icon="shiny" v-if="shiny != null" />
+					</span>
 					<span class="tw-font-light">{{ pokemon.information.name }}</span>
 				</div>
 				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-py-3">
@@ -97,6 +105,8 @@ export default {
 			url: Global.Url,
 			pokemon: null,
 			mainType: null,
+			icon: null,
+			shiny: null,
 		};
 	},
 	props: {
@@ -137,16 +147,9 @@ export default {
 
 		changeName(g, m, s) {
 			if (g) {
-				this.pokemon.name = s
-					? m
-						? this.name + " (shiny male)"
-						: this.name + " (shiny female)"
-					: m
-					? this.name + " (male)"
-					: this.name + " (female)";
-			} else {
-				this.pokemon.name = s ? this.name + " (shiny)" : this.name;
+				this.icon = m ? "fa-solid fa-venus" : "fa-solid fa-mars";
 			}
+			this.shiny = s ? "fa-regular fa-star" : null;
 		},
 	},
 	created() {

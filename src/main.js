@@ -8,9 +8,10 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { faSearch, faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faSearch);
+library.add(faSearch, faMars, faVenus, faStar);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
