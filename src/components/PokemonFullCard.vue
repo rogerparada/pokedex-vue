@@ -32,27 +32,29 @@
 			/>
 		</div>
 		<div id="bodyCard">
-			<div id="name" class="tw-capitalize tw-text-center">
+			<div id="name" class="tw-text-center">
 				<div class="tw-flex tw-flex-col">
 					<router-link
 						:to="pokeUrl"
 						v-if="pokeUrl != null"
 						class="link link-dark"
 					>
-						<span class="tw-font-bold"
+						<span class="tw-font-bold tw-capitalize"
 							>{{ pokemon.name }}
 							<font-awesome-icon :icon="icon" v-if="icon != null" />
 							<font-awesome-icon :icon="shiny" v-if="shiny != null" />
 						</span>
 					</router-link>
-					<span v-else class="tw-font-bold"
+					<span v-else class="tw-font-bold tw-capitalize"
 						>{{ pokemon.name }}
 						<font-awesome-icon :icon="icon" v-if="icon != null" />
 						<font-awesome-icon :icon="shiny" v-if="shiny != null" />
 					</span>
 					<span class="tw-font-light">{{ pokemon.information.name }}</span>
 				</div>
-				<div class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-py-3">
+				<div
+					class="tw-text-sm tw-font-thin tw-grid tw-grid-cols-3 tw-py-3 tw-capitalize"
+				>
 					<div class="tw-flex tw-flex-col tw-leading-7">
 						<span class="tw-text-base tw-leading-7">
 							{{ pokemon.stats.weight }}

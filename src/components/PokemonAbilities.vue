@@ -1,5 +1,5 @@
 <template>
-	<div class="abilities tw-pb-3" v-if="abilities != null">
+	<div class="abilities tw-pb-3 tw-capitalize" v-if="abilities != null">
 		<div
 			id="Abilities"
 			class="tw-flex tw-flex-wrap tw-justify-center tw-mx-3 tw-gap-0"
@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-	name: 'PokemonAbilities',
+	name: "PokemonAbilities",
 	data() {
 		return {};
 	},
@@ -35,7 +35,7 @@ export default {
 	methods: {},
 	watch: {
 		abilities() {
-			console.log('Abilities');
+			console.log("Abilities");
 			console.log(this.abilities);
 			this.getInfo();
 		},

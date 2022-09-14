@@ -91,7 +91,7 @@
 						<input
 							class="form-control me-2 tw-font-light tw-text-sm"
 							type="search"
-							placeholder="Search"
+							placeholder="Search (name or number)"
 							aria-label="Search"
 							v-model="searchText"
 						/>
@@ -106,9 +106,9 @@
 </template>
 
 <script>
-import Global from '@/Global';
+import Global from "@/Global";
 export default {
-	name: 'MenuComponent',
+	name: "MenuComponent",
 	data() {
 		return {
 			generations: Global.Generations,
