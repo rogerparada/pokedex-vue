@@ -2,7 +2,9 @@
 	<header>
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container">
-				<router-link class="brand navbar-brand" to="/">PokedexVue</router-link>
+				<router-link class="brand navbar-brand" to="/">
+					<img :src="logo" alt="Pokedex-Vue" class="tw-w-56" />
+				</router-link>
 				<button
 					class="navbar-toggler"
 					type="button"
@@ -107,6 +109,7 @@
 
 <script>
 import Global from "@/Global";
+import logoIcon from "@/assets/images/Logo.svg";
 export default {
 	name: "MenuComponent",
 	data() {
@@ -114,6 +117,7 @@ export default {
 			generations: Global.Generations,
 			types: Global.Types,
 			searchText: null,
+			logo: logoIcon,
 		};
 	},
 	methods: {
