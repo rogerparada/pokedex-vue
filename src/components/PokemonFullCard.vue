@@ -101,7 +101,6 @@
 				const p = new Pokemon();
 				(async () => {
 					let poke = await p.getPokemonFullData(this.url);
-					console.log(poke);
 					let { name, id, image, base_experience, types, information } = poke;
 					let stats = new Statistics(poke);
 					this.pokemon = {
