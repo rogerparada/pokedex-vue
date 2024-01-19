@@ -89,7 +89,15 @@
 					});
 			},
 			loadGeneration(id) {
-				const gen = Global.Generations.find((x) => x.id == id);
+				let gen = {};
+
+				for (const key in Global.Generations) {
+					if (Global.Generations[key].id === Number(id)) {
+						gen = Global.Generations[key];
+						break;
+					}
+				}
+
 				if (gen === undefined) {
 					this.$router.push("/");
 				}

@@ -3,17 +3,17 @@ import PokemonType from "./models/TypeModel";
 const Global = {
 	Url: "https://pokeapi.co/api/v2/",
 	Max: 1025,
-	Generations: [
-		new Generation(1, "Kanto", 1, 151, require("@/assets/images/Gen1.svg")),
-		new Generation(2, "Johto", 152, 100, require("@/assets/images/Gen2.svg")),
-		new Generation(3, "Hoenn", 252, 135, require("@/assets/images/Gen3.svg")),
-		new Generation(4, "Sinnon", 387, 107, require("@/assets/images/Gen4.svg")),
-		new Generation(5, "Teselia", 494, 156, require("@/assets/images/Gen5.svg")),
-		new Generation(6, "Kalos", 650, 72, require("@/assets/images/Gen6.svg")),
-		new Generation(7, "Alola", 722, 88, require("@/assets/images/Gen7.svg")),
-		new Generation(8, "Galar", 810, 96, require("@/assets/images/Gen8.svg")),
-		new Generation(9, "Paldea", 906, 120, require("@/assets/images/Gen9.svg")),
-	],
+	Generations: {
+		"generation-i": new Generation(1, "Kanto", 1, 151, require("@/assets/images/Gen1.svg")),
+		"generation-ii": new Generation(2, "Johto", 152, 100, require("@/assets/images/Gen2.svg")),
+		"generation-iii": new Generation(3, "Hoenn", 252, 135, require("@/assets/images/Gen3.svg")),
+		"generation-iv": new Generation(4, "Sinnon", 387, 107, require("@/assets/images/Gen4.svg")),
+		"generation-v": new Generation(5, "Teselia", 494, 156, require("@/assets/images/Gen5.svg")),
+		"generation-vi": new Generation(6, "Kalos", 650, 72, require("@/assets/images/Gen6.svg")),
+		"generation-vii": new Generation(7, "Alola", 722, 88, require("@/assets/images/Gen7.svg")),
+		"generation-viii": new Generation(8, "Galar", 810, 96, require("@/assets/images/Gen8.svg")),
+		"generation-ix": new Generation(9, "Paldea", 906, 120, require("@/assets/images/Gen9.svg")),
+	},
 	Types: [
 		new PokemonType(1, "normal", 131, "#8f99a1", require("@/assets/images/Icon_Normal.svg")),
 		new PokemonType(2, "fighting", 73, "#f0a489", require("@/assets/images/Icon_Fighting.svg")),

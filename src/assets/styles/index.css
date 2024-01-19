@@ -1,7 +1,6 @@
 body {
 	background-color: rgb(200, 0, 0) !important;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .card {
@@ -185,8 +184,7 @@ a :hover {
 
 .level {
 	color: white;
-	border-bottom-left-radius: var(--bs-card-border-radius);
-	border-bottom-right-radius: var(--bs-card-border-radius);
+	border-top-left-radius: var(--bs-card-border-radius);
 	position: static;
 	bottom: 0;
 	width: 100%;
@@ -197,4 +195,14 @@ a :hover {
 .level img {
 	margin-left: 0.5rem;
 	height: 70%;
+}
+
+#cardName {
+	border-bottom-left-radius: var(--bs-card-border-radius);
+}
+
+#stats {
+	border: 1px solid #eeeeee;
+	color: inherit;
+	margin-bottom: 1em;
 }
