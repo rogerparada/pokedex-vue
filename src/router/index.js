@@ -8,50 +8,51 @@ import ErrorPage from "../components/ErrorPage";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: HomePokedex,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
-    path: "/pokemon/:name",
-    component: PokemonInfo,
-  },
+	{
+		path: "/",
+		name: "home",
+		component: HomePokedex,
+	},
+	{
+		path: "/about",
+		name: "about",
+		component: () => import("../views/AboutView.vue"),
+	},
+	{
+		path: "/test",
+		name: "test",
+		component: () => import("../views/TestView.vue"),
+	},
+	{
+		path: "/pokemon/:name",
+		component: PokemonInfo,
+	},
 
-  {
-    path: "/list/:listType?/:id?/:page?",
-    component: PokedexList,
-  },
+	{
+		path: "/list/:listType?/:id?/:page?",
+		component: PokedexList,
+	},
 
-  {
-    path: "/all/:page?",
-    component: PokedexList,
-  },
-  {
-    path: "/error",
-    name: "errorPage",
-    component: ErrorPage,
-  },
-  {
-    path: "*",
-    name: "error",
-    component: ErrorPage,
-  },
+	{
+		path: "/all/:page?",
+		component: PokedexList,
+	},
+	{
+		path: "/error",
+		name: "errorPage",
+		component: ErrorPage,
+	},
+	{
+		path: "*",
+		name: "error",
+		component: ErrorPage,
+	},
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
+	mode: "history",
+	base: process.env.BASE_URL,
+	routes,
 });
 
 export default router;

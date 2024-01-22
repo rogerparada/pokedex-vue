@@ -67,16 +67,14 @@
 </template>
 
 <script>
-	import { Pokemon } from "@/api/Pokemon";
 	import Global from "../Global";
-	import { Statistics } from "../models/PokemonModel";
 	import TypeIcon from "./TypeIcon.vue";
 	import PokemonAbilities from "./PokemonAbilities.vue";
 	import ImageSelector from "./ImageSelector.vue";
 	import LoaderPokeBall from "./controls/LoaderPokeBall.vue";
 
 	export default {
-		name: "PokemonFullCard",
+		name: "PokemonFullCardInfo",
 		data() {
 			return {
 				name: null,
@@ -96,6 +94,10 @@
 				type: String,
 				default: null,
 			},
+			pokemonObj: {
+				type: Object,
+				default: null,
+			},
 		},
 		components: {
 			TypeIcon,
@@ -104,37 +106,20 @@
 			LoaderPokeBall,
 		},
 		methods: {
-			getData() {
-				const p = new Pokemon();
-				(async () => {
-					let poke = await p.getPokemonFullData(this.url);
-					let { name, id, image, base_experience, types, information } = poke;
-					let stats = new Statistics(poke);
-					this.pokemon = {
-						name,
-						id,
-						image,
-						base_experience,
-						stats,
-						types,
-						information,
-					};
-					this.mainType = types[0];
-					this.name = name;
-				})();
-			},
-
 			changeName(g, m, s) {
 				if (g) {
 					this.icon = m ? "fa-solid fa-venus" : "fa-solid fa-mars";
 				}
 				this.shiny = s ? "fa-regular fa-star" : null;
 			},
+			processPokemon() {},
 		},
 		created() {
-			this.name = this.$route.params.name;
-			this.url = this.id != null ? this.url + "pokemon/" + this.id : this.url + "pokemon/" + this.name;
-			this.getData();
+			if (this.pokemonObj !== null) {
+				this.pokemon = this.pokemonObj;
+				this.mainType = this.pokemonObj.types[0];
+				this.name = this.pokemonObj.name;
+			}
 		},
 	};
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-0 md:tw-pt-3" v-if="pokemon != null">
 		<div class="tw-w-96 tw-bg-white">
-			<PokemonFullCard :id="id" />
+			<PokemonFullCard :pokemonObj="pokemon" />
 			<div id="stats">
 				<div id="description"></div>
 				<PokemonStats :stats="pokemon.stats.statistics" />
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	import PokemonFullCard from "./PokemonFullCard.vue";
+	import PokemonFullCard from "./PokemonFullCardInfo.vue";
 	import EvolutionChain from "./EvolutionChain.vue";
 	import PokemonStats from "./PokemonStats.vue";
 	import { Statistics } from "../models/PokemonModel";
@@ -41,7 +41,7 @@
 				(async () => {
 					try {
 						let poke = await p.getPokemonFullData(this.url);
-						let { name, id, information } = poke;
+						let { name, id, information, types } = poke;
 						let stats = new Statistics(poke);
 
 						this.pokemon = {
@@ -49,6 +49,7 @@
 							id,
 							evolutions: information.evolution,
 							stats,
+							types,
 							information,
 						};
 					} catch (error) {

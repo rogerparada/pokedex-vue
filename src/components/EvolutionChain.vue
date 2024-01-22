@@ -4,7 +4,7 @@
 		<div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-3" v-if="Evolutions != null">
 			<div class="card tw-w-full tw-h-32 tw-flex tw-flex-row tw-overflow-hidden" v-for="(item, index) in pokemon" :key="index">
 				<div class="tw-flex tw-w-40 tw-h-32 tw-flex-col tw-gap-0">
-					<EvolutionTrigger :trigger="item.trigger" v-if="item.trigger != null" />
+					<EvolutionType :evolution="item.evolution" v-if="item.evolution != null" />
 					<div class="level tw-text-xs tw-flex tw-items-center tw-justify-center tw-gap-2 tw-w-full tw-h-1/2 tw-capitalize" v-else>
 						<span class="tw-font-bold tw-text-xs">Base Form</span>
 					</div>
@@ -29,7 +29,7 @@
 
 <script>
 	import { Pokemon } from "@/api/Pokemon";
-	import EvolutionTrigger from "./EvolutionTrigger.vue";
+	import EvolutionType from "./EvolutionType.vue";
 
 	export default {
 		name: "EvolutionChain",
@@ -61,24 +61,29 @@
 				if (this.Evolutions != null) {
 					this.Evolutions.forEach(async (item, index) => {
 						const { id, name, order, image, url } = await this.getImage(item.url, index);
-						this.pokemon.push({
+
+						const p = {
 							id,
 							name,
 							image,
 							url,
-							trigger: item.trigger,
+							evolution: item.evolution,
 							index: order,
-						});
+							baby: item.baby,
+						};
+						this.pokemon.push(p);
+						console.log("PokemonEvolution", p);
 						this.pokemon = this.pokemon.sort((a, b) => a.index - b.index);
 					});
 				}
 			},
 		},
 		created() {
+			console.log(this.Evolutions);
 			this.getEvolutions();
 		},
 
-		components: { EvolutionTrigger },
+		components: { EvolutionType },
 	};
 </script>
 

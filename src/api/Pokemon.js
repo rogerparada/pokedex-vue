@@ -19,10 +19,11 @@ export class Pokemon {
 		try {
 			const result = await fetch(url);
 			const data = await result.json();
+			const { id, name, sprites } = data;
 			return {
-				id: data.id,
-				name: data.name,
-				image: data.sprites.other.home.front_default,
+				id: id,
+				name: name,
+				image: sprites.other.home.front_default,
 			};
 		} catch (error) {
 			console.error(error);
@@ -62,7 +63,7 @@ export class Pokemon {
 		try {
 			const { generation, genera, flavor_text_entries, evolution_chain, has_gender_differences } = data;
 			const description = {
-				generation: Global.Generations[generation.name] || Global.Generations[0](),
+				generation: Global.Generations[generation.name] || Global.Generations["generation-i"](),
 				name: genera.length > 0 ? genera.filter((x) => x.language.name === "en")[0].genus : "",
 				description:
 					flavor_text_entries.length > 0
@@ -78,67 +79,110 @@ export class Pokemon {
 	}
 
 	async getEvolutions(url) {
-		console.log(url);
-		const result = await fetch(url);
-		const data = await result.json();
-		let evo = [];
+		const res = await fetch(url);
+		console.log("🚀 ~ Pokemon ~ getEvolutions ~ url:", url);
+		const data = await res.json();
 		const { chain } = data;
-		evo.push(this.getEvo(chain));
+		const evolutions = [];
 
-		chain.evolves_to.forEach((item) => {
-			evo.push(this.getEvo(item));
+		evolutions.push(this.processPoke(chain));
 
-			item.evolves_to.forEach((item2) => {
-				evo.push(this.getEvo(item2));
+		if (chain.evolves_to.length > 1) {
+			chain.evolves_to.forEach((e) => {
+				evolutions.push(this.processPoke(e));
 			});
-		});
-		return evo;
+		} else {
+			while (chain.evolves_to.length >= 1) {
+				const evo = chain.evolves_to[0];
+				evolutions.push(this.processPoke(evo));
+				chain.evolves_to = evo.evolves_to;
+			}
+		}
+		console.log(evolutions);
+		return evolutions;
 	}
 
-	getEvo(item) {
-		let name = item.species.name;
-		let { evolution_details } = item;
-		let tr = evolution_details[0];
+	processPoke(info) {
+		const { evolution_details, is_baby, species } = info;
 		return {
-			name: name,
-			url: Global.Url + "pokemon/" + name,
-			trigger: tr != undefined ? this.getEvolutionTrigger(tr) : null,
+			name: species.name,
+			evolution: evolution_details.length > 0 ? this.processEvo(evolution_details[0]) : null,
+			baby: is_baby,
+			url: `${Global.Url}pokemon/${species.name}`,
 		};
 	}
 
-	getEvolutionTrigger(obj) {
-		const name = obj.trigger.name ?? "Other";
-		console.log(name);
-		let id;
-		let evolution;
-		switch (name) {
-			case "level-up":
-				id = 1;
-				evolution = this.selectLevelUpTrigger(obj);
-				break;
-			case "trade":
-				id = 2;
-				break;
-			case "use-item":
-				id = 3;
-				evolution = obj.item;
-				break;
+	processEvo(evoData) {
+		const result = {};
+		if (evoData !== null) {
+			Object.keys(evoData).forEach((key) => {
+				if (evoData[key] != null && evoData[key]) {
+					result[key] = evoData[key].name ?? evoData[key];
+				}
+			});
+
+			return this.getEvolution(result);
 		}
-		return { id, name, evolution };
 	}
 
-	selectLevelUpTrigger(obj) {
+	getEvolution(obj) {
+		const evo = Object.keys(obj).filter((t) => t !== "trigger");
 		console.log(obj);
-		return obj.min_affection != null
-			? { min_affection: obj.min_affection, id: 1 }
-			: obj.min_beauty != null
-			? { min_beauty: obj.min_beauty, id: 2 }
-			: obj.min_happiness != null
-			? { min_happiness: obj.min_happiness, id: 3 }
-			: obj.min_level != null
-			? { min_level: obj.min_level, id: 4 }
-			: location != null
-			? { location: obj.location, id: 5 }
-			: null;
+		//const trigger = obj.trigger.replace("-", " ");
+		const EVOLUTIONS_TYPES = {
+			gender: { name: "gender", value: obj.gender },
+			held_item: { name: "Held", value: obj.held_item },
+			item: { name: "Use Item", value: obj.item },
+			known_move: { name: "Known Move", value: obj.known_move },
+			known_move_type: { name: "Known", value: obj.known_move_type },
+			location: { name: "Location", value: obj.location },
+			min_affection: { name: "Affection", value: obj.min_affection },
+			min_beauty: { name: "Beauty", value: obj.min_beauty },
+			min_happiness: { name: "Happiness", value: obj.min_happiness },
+			min_level: { name: "Level Up", value: obj.min_level },
+			needs_overworld_rain: { name: "Rain", value: obj.needs_overworld_rain },
+			party_species: { name: "PartySp", value: obj.party_species },
+			party_type: { name: "Party", value: obj.party_type },
+			relative_physical_stats: { name: "Physical", value: obj.relative_physical_stats },
+			time_of_day: { name: "Time", value: obj.time_of_day },
+			trade_species: { name: "Species", value: obj.trade_species },
+			turn_upside_down: { name: "UpDown", value: obj.turn_upside_down },
+		};
+
+		// const EVOLUTION_TRIGGERS = {
+		// 	"level-up": EVOLUTIONS_TYPES[evo],
+		// 	trade: {},
+		// 	"use-item": EVOLUTIONS_TYPES[evo],
+		// 	shed: {},
+		// 	spin: {},
+		// 	"tower-of-darkness": {},
+		// 	"tower-of-waters": {},
+		// 	"three-critical-hits": {},
+		// 	"take-damage": {},
+		// 	other: {},
+		// 	"agile-style-move": {},
+		// 	"strong-style-move": {},
+		// 	"recoil-damage": {},
+		// };
+
+		console.log("Array", Array.isArray(evo));
+		if (typeof evo === "string") {
+			const { name, value } = EVOLUTIONS_TYPES[evo];
+			console.log(`ResultString: ${typeof evo} ${obj.trigger} ${name} ${value}`);
+			return { trigger: obj.trigger, evolutionType: EVOLUTIONS_TYPES[evo] };
+		}
+		if (Array.isArray(evo)) {
+			if (evo.length === 1) {
+				return { trigger: obj.trigger, evolutionType: [EVOLUTIONS_TYPES[evo[0]]] };
+			} else {
+				const m = evo.map((x) => EVOLUTIONS_TYPES[x]);
+				return { trigger: obj.trigger, evolutionType: m };
+			}
+			//console.log(`ResultArray: ${typeof evo} ${obj.trigger} `);
+		}
+		// if (typeof evo === "object") {
+		// 	console.log(`ResultObject: ${typeof evo} ${obj.trigger} ${name} ${value}`);
+		// 	return { trigger: obj.trigger, evolutionType: EVOLUTIONS_TYPES[evo] };
+		// }
 	}
 }
