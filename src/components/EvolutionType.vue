@@ -32,8 +32,8 @@
 		methods: {},
 		created() {
 			if (this.evolutionType !== null) {
-				const { evolutionType, trigger } = this.evolution;
-				console.log("EvolutionType", evolutionType, trigger);
+				const { evolutionType } = this.evolution;
+				//console.log("EvolutionType", evolutionType, trigger);
 				this.evolutions = evolutionType;
 			}
 		},

@@ -72,14 +72,14 @@
 							baby: item.baby,
 						};
 						this.pokemon.push(p);
-						console.log("PokemonEvolution", p);
+						//console.log("PokemonEvolution", p);
 						this.pokemon = this.pokemon.sort((a, b) => a.index - b.index);
 					});
 				}
 			},
 		},
 		created() {
-			console.log(this.Evolutions);
+			//console.log(this.Evolutions);
 			this.getEvolutions();
 		},
 

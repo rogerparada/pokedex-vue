@@ -71,8 +71,9 @@ export class Pokemon {
 						: "This Pokemon doesn't have a description yet",
 				evolution: await this.getEvolutions(evolution_chain.url),
 				gender_differences: has_gender_differences,
-				varieties,
+				varieties: await this.getVarieties(varieties),
 			};
+			console.log(description.varieties);
 			return description;
 		} catch (error) {
 			console.error(error);
@@ -99,7 +100,7 @@ export class Pokemon {
 				chain.evolves_to = evo.evolves_to;
 			}
 		}
-		console.log(evolutions);
+		//console.log(evolutions);
 		return evolutions;
 	}
 
@@ -130,7 +131,7 @@ export class Pokemon {
 
 	getEvolution(obj) {
 		const evo = Object.keys(obj).filter((t) => t !== "trigger");
-		console.log(obj);
+		//console.log(obj);
 		//const trigger = obj.trigger.replace("-", " ");
 		const EVOLUTIONS_TYPES = {
 			gender: { name: "gender", value: obj.gender },
@@ -152,6 +153,7 @@ export class Pokemon {
 			turn_upside_down: { name: "UpDown", value: obj.turn_upside_down },
 		};
 
+		// TODO Check Evolutions Triggers
 		// const EVOLUTION_TRIGGERS = {
 		// 	"level-up": EVOLUTIONS_TYPES[evo],
 		// 	trade: {},
@@ -168,7 +170,6 @@ export class Pokemon {
 		// 	"recoil-damage": {},
 		// };
 
-		// console.log("Array", Array.isArray(evo));
 		if (typeof evo === "string") {
 			const { name, value } = EVOLUTIONS_TYPES[evo];
 			console.log(`ResultString: ${typeof evo} ${obj.trigger} ${name} ${value}`);
@@ -183,9 +184,16 @@ export class Pokemon {
 			}
 			//console.log(`ResultArray: ${typeof evo} ${obj.trigger} `);
 		}
-		// if (typeof evo === "object") {
-		// 	console.log(`ResultObject: ${typeof evo} ${obj.trigger} ${name} ${value}`);
-		// 	return { trigger: obj.trigger, evolutionType: EVOLUTIONS_TYPES[evo] };
-		// }
+	}
+
+	async getVarieties(varieties) {
+		const values = [];
+		varieties.forEach(async (x) => {
+			const { is_default, pokemon } = x;
+			const v = await this.getPokemonImage(pokemon.url);
+			values.push({ is_default, pokemon: v });
+		});
+
+		return values;
 	}
 }
