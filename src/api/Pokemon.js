@@ -61,7 +61,7 @@ export class Pokemon {
 		const data = await result.json();
 
 		try {
-			const { generation, genera, flavor_text_entries, evolution_chain, has_gender_differences } = data;
+			const { generation, genera, flavor_text_entries, evolution_chain, has_gender_differences, varieties } = data;
 			const description = {
 				generation: Global.Generations[generation.name] || Global.Generations["generation-i"](),
 				name: genera.length > 0 ? genera.filter((x) => x.language.name === "en")[0].genus : "",
@@ -71,6 +71,7 @@ export class Pokemon {
 						: "This Pokemon doesn't have a description yet",
 				evolution: await this.getEvolutions(evolution_chain.url),
 				gender_differences: has_gender_differences,
+				varieties,
 			};
 			return description;
 		} catch (error) {
@@ -104,11 +105,13 @@ export class Pokemon {
 
 	processPoke(info) {
 		const { evolution_details, is_baby, species } = info;
+		console.log("🚀 ~ Pokemon ~ processPoke ~ species:", species);
+		const id = species.url.split("/")[6];
 		return {
 			name: species.name,
 			evolution: evolution_details.length > 0 ? this.processEvo(evolution_details[0]) : null,
 			baby: is_baby,
-			url: `${Global.Url}pokemon/${species.name}`,
+			url: `${Global.Url}pokemon/${id}`,
 		};
 	}
 
@@ -165,7 +168,7 @@ export class Pokemon {
 		// 	"recoil-damage": {},
 		// };
 
-		console.log("Array", Array.isArray(evo));
+		// console.log("Array", Array.isArray(evo));
 		if (typeof evo === "string") {
 			const { name, value } = EVOLUTIONS_TYPES[evo];
 			console.log(`ResultString: ${typeof evo} ${obj.trigger} ${name} ${value}`);

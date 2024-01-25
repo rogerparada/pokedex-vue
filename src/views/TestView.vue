@@ -1,12 +1,14 @@
 <template>
-	<div class="test"></div>
+	<div class="test">
+		<LoaderPokeBall />
+	</div>
 </template>
 
 <script>
-	// @ is an alias to /src
+	import LoaderPokeBall from "@/components/controls/LoaderPokeBall.vue";
 
 	export default {
 		name: "TestView",
-		components: {},
+		components: { LoaderPokeBall },
 	};
 </script>

@@ -54,7 +54,7 @@
 					id,
 					name,
 					image,
-					url: `/pokemon/${name}`,
+					url: `/pokemon/${id}`,
 				};
 			},
 			getEvolutions() {

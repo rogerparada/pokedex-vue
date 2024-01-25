@@ -62,12 +62,24 @@
 	#PokeBall {
 		width: var(--size);
 		height: var(--size);
-		animation: spin 1.2s linear infinite;
+		animation: grow 1.5s ease-in-out infinite;
 	}
 
 	@keyframes spin {
 		to {
 			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes grow {
+		0% {
+			transform: scale(10);
+		}
+		30% {
+			transform: scale(20);
+		}
+		100% {
+			transform: scale(150);
 		}
 	}
 </style>

@@ -1,15 +1,18 @@
 <template>
-	<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-0 md:tw-pt-3" v-if="pokemon != null">
-		<div class="tw-w-96 tw-bg-white">
-			<PokemonFullCard :pokemonObj="pokemon" />
-			<div id="stats">
-				<div id="description"></div>
-				<PokemonStats :stats="pokemon.stats.statistics" />
+	<div>
+		<div class="main tw-flex tw-flex-wrap tw-justify-center tw-gap-0 md:tw-pt-3" v-if="pokemon != null">
+			<div class="tw-w-96 tw-bg-white">
+				<PokemonFullCard :pokemonObj="pokemon" />
+				<div id="stats">
+					<div id="description"></div>
+					<PokemonStats :stats="pokemon.stats.statistics" />
+				</div>
+			</div>
+			<div class="tw-w-96 tw-bg-white" v-if="pokemon.evolutions.length > 1">
+				<EvolutionChain :Evolutions="pokemon.evolutions" />
 			</div>
 		</div>
-		<div class="tw-w-96 tw-bg-white" v-if="pokemon.evolutions.length > 1">
-			<EvolutionChain :Evolutions="pokemon.evolutions" />
-		</div>
+		<div class="" v-else><LoaderPokeBall /></div>
 	</div>
 </template>
 
@@ -19,6 +22,7 @@
 	import PokemonStats from "./PokemonStats.vue";
 	import { Statistics } from "../models/PokemonModel";
 	import { Pokemon } from "@/api/Pokemon";
+	import LoaderPokeBall from "./controls/LoaderPokeBall.vue";
 	import Global from "@/Global";
 
 	export default {
@@ -34,6 +38,7 @@
 			PokemonFullCard,
 			EvolutionChain,
 			PokemonStats,
+			LoaderPokeBall,
 		},
 		methods: {
 			getData() {
