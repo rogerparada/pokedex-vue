@@ -8,8 +8,8 @@
 					<PokemonStats :stats="pokemon.stats.statistics" />
 				</div>
 			</div>
-			<div class="tw-w-96 tw-bg-white" v-if="pokemon.evolutions.length > 1">
-				<EvolutionChain :Evolutions="pokemon.evolutions" />
+			<div class="tw-w-96 tw-bg-white" v-if="pokemon.evolution.length > 1">
+				<EvolutionChain :Evolutions="pokemon.evolution" />
 			</div>
 		</div>
 		<div class="" v-else><LoaderPokeBall /></div>
@@ -46,17 +46,9 @@
 				(async () => {
 					try {
 						let poke = await p.getPokemonFullData(this.url);
-						let { name, id, information, types } = poke;
-						let stats = new Statistics(poke);
 
-						this.pokemon = {
-							name,
-							id,
-							evolutions: information.evolution,
-							stats,
-							types,
-							information,
-						};
+						let stats = new Statistics(poke);
+						this.pokemon = { ...poke, stats };
 					} catch (error) {
 						this.$router.push(`/error?pokemon=${this.$route.params.name}`);
 					}

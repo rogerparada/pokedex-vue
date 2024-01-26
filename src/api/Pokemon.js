@@ -35,6 +35,8 @@ export class Pokemon {
 			const result = await fetch(url);
 			const data = await result.json();
 			const { id, name, types, abilities, height, stats, sprites, base_experience, weight, species } = data;
+
+			const { evolution, varieties, ...information } = await this.getDescription(species.url);
 			return {
 				id,
 				name,
@@ -45,7 +47,9 @@ export class Pokemon {
 				base_experience,
 				abilities,
 				weight,
-				information: await this.getDescription(species.url),
+				information: information,
+				evolution,
+				varieties,
 			};
 		} catch (error) {
 			console.error(error);
@@ -73,7 +77,7 @@ export class Pokemon {
 				gender_differences: has_gender_differences,
 				varieties: await this.getVarieties(varieties),
 			};
-			console.log(description.varieties);
+
 			return description;
 		} catch (error) {
 			console.error(error);
