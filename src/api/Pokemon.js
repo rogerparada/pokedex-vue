@@ -110,13 +110,15 @@ export class Pokemon {
 
 	processPoke(info) {
 		const { evolution_details, is_baby, species } = info;
-		console.log("🚀 ~ Pokemon ~ processPoke ~ species:", species);
+
 		const id = species.url.split("/")[6];
+		const url = `${Global.Url}pokemon/${id}`;
+
 		return {
 			name: species.name,
 			evolution: evolution_details.length > 0 ? this.processEvo(evolution_details[0]) : null,
 			baby: is_baby,
-			url: `${Global.Url}pokemon/${id}`,
+			url,
 		};
 	}
 
@@ -194,8 +196,8 @@ export class Pokemon {
 		const values = [];
 		varieties.forEach(async (x) => {
 			const { is_default, pokemon } = x;
-			const v = await this.getPokemonImage(pokemon.url);
-			values.push({ is_default, pokemon: v });
+			const p = await this.getPokemonData(pokemon.url);
+			values.push({ is_default, ...p });
 		});
 
 		return values;

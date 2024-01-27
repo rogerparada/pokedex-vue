@@ -11,6 +11,9 @@
 			<div class="tw-w-96 tw-bg-white" v-if="pokemon.evolution.length > 1">
 				<EvolutionChain :Evolutions="pokemon.evolution" />
 			</div>
+			<div id="varieties" class="tw-w-96 tw-bg-white" v-if="pokemon.varieties.length > 1">
+				<PokemonVarieties :PokemonVarieties="pokemon.varieties" />
+			</div>
 		</div>
 		<div class="" v-else><LoaderPokeBall /></div>
 	</div>
@@ -20,9 +23,10 @@
 	import PokemonFullCard from "./PokemonFullCardInfo.vue";
 	import EvolutionChain from "./EvolutionChain.vue";
 	import PokemonStats from "./PokemonStats.vue";
+	import LoaderPokeBall from "./controls/LoaderPokeBall.vue";
+	import PokemonVarieties from "./PokemonVarieties.vue";
 	import { Statistics } from "../models/PokemonModel";
 	import { Pokemon } from "@/api/Pokemon";
-	import LoaderPokeBall from "./controls/LoaderPokeBall.vue";
 	import Global from "@/Global";
 
 	export default {
@@ -39,6 +43,7 @@
 			EvolutionChain,
 			PokemonStats,
 			LoaderPokeBall,
+			PokemonVarieties,
 		},
 		methods: {
 			getData() {
