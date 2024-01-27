@@ -4,10 +4,13 @@ export class Pokemon {
 		try {
 			const result = await fetch(url);
 			const data = await result.json();
+			const home = data.sprites.other["home"];
+			const official = data.sprites.other["official-artwork"];
+			const images = home.front_default !== null ? home : official;
 			return {
 				id: data.id,
 				name: data.name,
-				image: data.sprites.other.home.front_default,
+				image: images.front_default,
 				types: this.getTypes(data.types),
 			};
 		} catch (error) {
@@ -20,10 +23,13 @@ export class Pokemon {
 			const result = await fetch(url);
 			const data = await result.json();
 			const { id, name, sprites } = data;
+			const home = sprites.other["home"];
+			const official = sprites.other["official-artwork"];
+			const images = home.front_default !== null ? home : official;
 			return {
 				id: id,
 				name: name,
-				image: sprites.other.home.front_default,
+				image: images.front_default,
 			};
 		} catch (error) {
 			console.error(error);
@@ -35,12 +41,15 @@ export class Pokemon {
 			const result = await fetch(url);
 			const data = await result.json();
 			const { id, name, types, abilities, height, stats, sprites, base_experience, weight, species } = data;
-
 			const { evolution, varieties, ...information } = await this.getDescription(species.url);
+			const home = sprites.other["home"];
+			const official = sprites.other["official-artwork"];
+			const images = home.front_default !== null ? home : official;
+
 			return {
 				id,
 				name,
-				image: sprites.other.home.front_default,
+				image: images.front_default,
 				types: this.getTypes(types),
 				height,
 				stats,
@@ -86,7 +95,7 @@ export class Pokemon {
 
 	async getEvolutions(url) {
 		const res = await fetch(url);
-		console.log("🚀 ~ Pokemon ~ getEvolutions ~ url:", url);
+		//console.log("🚀 ~ Pokemon ~ getEvolutions ~ url:", url);
 		const data = await res.json();
 		const { chain } = data;
 		const evolutions = [];
