@@ -72,7 +72,7 @@
 							: this.images.front_default
 						: null;
 				if (!this.image) {
-					this.image = this.images.front_default;
+					this.image = !this.shiny ? this.images.front_default : this.images.front_shiny;
 				}
 
 				this.$emit("change", this.gender_differences, this.genre, this.shiny);

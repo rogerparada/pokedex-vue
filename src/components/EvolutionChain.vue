@@ -1,9 +1,10 @@
 <template>
-	<div class="tw-w-full tw-bg-white tw-p-3">
+	<div class="tw-w-full tw-bg-white md:tw-mx-5 sm:tw-p-3">
 		<div class="tw-font-bold tw-text-center tw-mb-3">Evolution chain</div>
 		<div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-3" v-if="Evolutions != null">
-			<div class="card tw-w-full tw-h-32 tw-flex tw-flex-row tw-overflow-hidden" v-for="(item, index) in pokemon" :key="index">
-				<div class="tw-flex tw-w-40 tw-h-32 tw-flex-col tw-gap-0">
+			<div class="tw-flex tw-flex-wrap tw-gap-2 tw-justify-center">
+				<div class="" v-for="(item, index) in pokemon" :key="index">
+					<!-- <div class="tw-flex tw-w-40 tw-h-32 tw-flex-col tw-gap-0">
 					<EvolutionType :evolution="item.evolution" v-if="item.evolution != null" />
 					<div class="level tw-text-xs tw-flex tw-items-center tw-justify-center tw-gap-2 tw-w-full tw-h-1/2 tw-capitalize" v-else>
 						<span class="tw-font-bold tw-text-xs">Base Form</span>
@@ -21,6 +22,8 @@
 					<router-link :to="item.url" class="link link-dark">
 						<img :src="item.image" :alt="item.name" :title="item.name" class="tw-w-32 tw-pb-2" />
 					</router-link>
+				</div> -->
+					<EvolutionCardVue :Pokemon="item" />
 				</div>
 			</div>
 		</div>
@@ -29,7 +32,8 @@
 
 <script>
 	import { Pokemon } from "@/api/Pokemon";
-	import EvolutionType from "./EvolutionType.vue";
+	//import EvolutionType from "./EvolutionType.vue";
+	import EvolutionCardVue from "./cards/EvolutionCard.vue";
 
 	export default {
 		name: "EvolutionChain",
@@ -83,7 +87,7 @@
 			this.getEvolutions();
 		},
 
-		components: { EvolutionType },
+		components: { EvolutionCardVue },
 	};
 </script>
 

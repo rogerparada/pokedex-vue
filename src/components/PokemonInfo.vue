@@ -8,10 +8,10 @@
 					<PokemonStats :stats="pokemon.stats.statistics" />
 				</div>
 			</div>
-			<div class="tw-w-96 tw-bg-white" v-if="pokemon.evolution.length > 1">
+			<div class="tw-w-96 tw-bg-white tw-m-2" v-if="pokemon.evolution.length > 1">
 				<EvolutionChain :Evolutions="pokemon.evolution" />
 			</div>
-			<div id="varieties" class="tw-w-96 tw-bg-white" v-if="pokemon.varieties.length > 1">
+			<div id="varieties" class="tw-w-96 m-2 tw-bg-white" v-if="pokemon.varieties.length > 1">
 				<PokemonVarieties :PokemonVarieties="pokemon.varieties" />
 			</div>
 		</div>
