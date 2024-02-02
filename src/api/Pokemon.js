@@ -210,11 +210,11 @@ export class Pokemon {
 
 	async getVarieties(varieties) {
 		const values = [];
-		varieties.forEach(async (x) => {
-			const { is_default, pokemon } = x;
+		for (let index = 0; index < varieties.length; index++) {
+			const { is_default, pokemon } = varieties[index];
 			const p = await this.getPokemonData(pokemon.url);
 			values.push({ is_default, ...p });
-		});
+		}
 
 		return values;
 	}
