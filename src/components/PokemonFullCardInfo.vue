@@ -22,13 +22,13 @@
 					<div class="tw-flex tw-flex-col">
 						<router-link :to="pokeUrl" v-if="pokeUrl != null" class="link link-dark">
 							<span class="tw-font-bold tw-capitalize"
-								>{{ pokemon.name }}
+								>{{ pokemon.fullName }}
 								<font-awesome-icon :icon="icon" v-if="icon != null" />
 								<font-awesome-icon :icon="shiny" v-if="shiny != null" />
 							</span>
 						</router-link>
 						<span v-else class="tw-font-bold tw-capitalize"
-							>{{ pokemon.name }}
+							>{{ pokemon.fullName }}
 							<font-awesome-icon :icon="icon" v-if="icon != null" />
 							<font-awesome-icon :icon="shiny" v-if="shiny != null" />
 						</span>

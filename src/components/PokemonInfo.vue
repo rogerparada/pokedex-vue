@@ -53,6 +53,7 @@
 						let poke = await p.getPokemonFullData(this.url);
 
 						let stats = new Statistics(poke);
+						poke.fullName = poke.name.replaceAll("-", " ");
 						this.pokemon = { ...poke, stats };
 					} catch (error) {
 						this.$router.push(`/error?pokemon=${this.$route.params.name}`);

@@ -95,40 +95,47 @@ export class Pokemon {
 
 	async getEvolutions(url) {
 		const res = await fetch(url);
-		//console.log("🚀 ~ Pokemon ~ getEvolutions ~ url:", url);
 		const data = await res.json();
 		const { chain } = data;
 		const evolutions = [];
 
-		evolutions.push(this.processPoke(chain));
+		evolutions.push(await this.processPoke(chain));
 
 		if (chain.evolves_to.length > 1) {
-			chain.evolves_to.forEach((e) => {
-				evolutions.push(this.processPoke(e));
-			});
+			for (let index = 0; index < chain.evolves_to.length; index++) {
+				const element = await this.processPoke(chain.evolves_to[index]);
+				evolutions.push(element);
+			}
 		} else {
 			while (chain.evolves_to.length >= 1) {
 				const evo = chain.evolves_to[0];
-				evolutions.push(this.processPoke(evo));
+				evolutions.push(await this.processPoke(evo));
 				chain.evolves_to = evo.evolves_to;
 			}
 		}
-		//console.log(evolutions);
+
 		return evolutions;
 	}
 
-	processPoke(info) {
-		const { evolution_details, is_baby, species } = info;
+	async processPoke(info) {
+		try {
+			const { evolution_details, is_baby, species } = info;
 
-		const id = species.url.split("/")[6];
-		const url = `${Global.Url}pokemon/${id}`;
+			const id = species.url.split("/")[6];
+			const url = `${Global.Url}pokemon/${id}`;
 
-		return {
-			name: species.name,
-			evolution: evolution_details.length > 0 ? this.processEvo(evolution_details[0]) : null,
-			baby: is_baby,
-			url,
-		};
+			const { image } = await this.getPokemonImage(url);
+			return {
+				id,
+				name: species.name,
+				evolution: evolution_details.length > 0 ? this.processEvo(evolution_details[0]) : null,
+				baby: is_baby,
+				url,
+				image,
+			};
+		} catch (error) {
+			console.log("Error", error);
+		}
 	}
 
 	processEvo(evoData) {

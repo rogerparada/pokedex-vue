@@ -39,19 +39,23 @@
 		},
 		methods: {},
 		created() {
-			if (this.Pokemon !== null) {
-				//console.log("🚀 ~ created ~ this.Pokemon :", this.Pokemon);
-				this.image = this.Pokemon.image;
-				this.name = this.Pokemon.name.replaceAll("-", " ");
-				this.id = this.Pokemon.id;
-				this.url = `/Pokemon/${this.Pokemon.name}`;
-				this.evolution =
-					this.Pokemon.evolution?.evolutionType?.length > 0
-						? this.Pokemon.evolution.evolutionType[0]
-						: this.Pokemon.baby
-						? { name: "Baby" }
-						: { name: "Initial" };
-				this.types = this.Pokemon.types;
+			try {
+				if (this.Pokemon !== null) {
+					//console.log("🚀 ~ created ~ this.Pokemon :", this.Pokemon);
+					this.image = this.Pokemon.image;
+					this.name = this.Pokemon.name.replaceAll("-", " ");
+					this.id = this.Pokemon.id;
+					this.url = `/Pokemon/${this.Pokemon.name}`;
+					this.evolution =
+						this.Pokemon.evolution?.evolutionType?.length > 0
+							? this.Pokemon.evolution.evolutionType[0]
+							: this.Pokemon.baby
+							? { name: "Baby" }
+							: { name: "Initial" };
+					this.types = this.Pokemon.types;
+				}
+			} catch (error) {
+				console.log(error);
 			}
 		},
 		computed: {},

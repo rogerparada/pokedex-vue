@@ -16,7 +16,7 @@
 <script>
 	import TypeSelector from "../TypeSelector.vue";
 	import KeyStone from "@/assets/images/KeyStone.svg";
-	import Giga from "@/assets/images/Dynamax.svg";
+	import Giga from "@/assets/images/Dinamax.svg";
 
 	export default {
 		name: "VarietyCard",
