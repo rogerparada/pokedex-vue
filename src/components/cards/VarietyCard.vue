@@ -1,8 +1,10 @@
 <template>
 	<div class="card tw-w-28 tw-h-44 tw-bg-white tw-shadow-md">
 		<router-link :to="url" class="link link-dark tw-mb-2">
-			<div class="pokeItem tw-text-sm tw-font-thin tw-text-black" v-if="variety">
-				<img :src="variety.icon" :alt="variety.name" class="tw-w-6" />
+			<div class="pokeItem tw-text-sm tw-font-thin tw-text-black tw-w-8" v-if="variety">
+				<VarietyIcon :varietyName="variety" />
+
+				<!-- <img :src="variety.icon" :alt="variety.name" class="tw-w-6" /> -->
 			</div>
 			<img :src="image" :alt="name" class="tw-mb-2" />
 			<div class="tw-capitalize tw-text-center tw-text-xs tw-pb-2">
@@ -15,13 +17,12 @@
 
 <script>
 	import TypeSelector from "../TypeSelector.vue";
-	import KeyStone from "@/assets/images/KeyStone.svg";
-	import Giga from "@/assets/images/Dinamax.svg";
-
+	import VarietyIcon from "./VarietyIcon.vue";
 	export default {
 		name: "VarietyCard",
 		components: {
 			TypeSelector,
+			VarietyIcon,
 		},
 		props: {
 			Pokemon: {
@@ -48,10 +49,6 @@
 				}
 				return name.replaceAll("-", " ");
 			},
-			SelectVariety(variety) {
-				if (variety === "mega") return { name: "Mega", icon: KeyStone };
-				if (variety === "gmax") return { name: "Gigamax", icon: Giga };
-			},
 		},
 		created() {
 			if (this.Pokemon !== null) {
@@ -59,7 +56,7 @@
 				this.name = this.FormatName(this.Pokemon.name);
 				this.id = this.Pokemon.id;
 				this.url = `/Pokemon/${this.Pokemon.name}`;
-				this.variety = this.SelectVariety(this.Pokemon.name.split("-")[1]);
+				this.variety = this.Pokemon.name.split("-")[1];
 				this.types = this.Pokemon.types;
 			}
 		},

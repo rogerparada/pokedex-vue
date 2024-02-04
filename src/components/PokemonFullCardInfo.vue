@@ -3,8 +3,11 @@
 		<div id="PokemonInfo" class="tw-mx-0 md:tw-mx-auto tw-flex tw-flex-col" v-if="pokemon != null">
 			<div id="Card" class="tw-p-0 tw-w-full tw-h-72 tw-mx-auto tw-bg-white">
 				<div id="typeFrame" class="tw-w-full tw-h-52 tw-p-2" :style="{ 'background-color': mainType.color }"></div>
-				<div class="pokeNumber tw-bg-white tw-text-sm tw-font-bold" :style="{ color: mainType.color }">
+				<div class="pokeNumber tw-bg-white tw-text-sm tw-font-bold" :style="{ color: mainType.color }" v-if="Number(pokemon.id) <= 1025">
 					{{ pokemon.id }}
+				</div>
+				<div class="pokeItem tw-w-12" v-else>
+					<VarietyIcon :varietyName="variety" />
 				</div>
 
 				<div class="pokeGeneration">
@@ -72,6 +75,7 @@
 	import PokemonAbilities from "./PokemonAbilities.vue";
 	import ImageSelector from "./ImageSelector.vue";
 	import LoaderPokeBall from "./controls/LoaderPokeBall.vue";
+	import VarietyIcon from "./cards/VarietyIcon.vue";
 
 	export default {
 		name: "PokemonFullCardInfo",
@@ -83,6 +87,7 @@
 				mainType: null,
 				icon: null,
 				shiny: null,
+				variety: null,
 			};
 		},
 		props: {
@@ -104,6 +109,7 @@
 			PokemonAbilities,
 			ImageSelector,
 			LoaderPokeBall,
+			VarietyIcon,
 		},
 		methods: {
 			changeName(g, m, s) {
@@ -112,13 +118,23 @@
 				}
 				this.shiny = s ? "fa-regular fa-star" : null;
 			},
-			processPokemon() {},
+
+			FormatName(name) {
+				const f = name.split("-");
+				if (f.length > 1) {
+					if (f[1] === "mega") return [f[1], f[0], f[2]].join(" ");
+					if (f[1] === "gmax") return `${f[0]} Gigamax`;
+				}
+				return name.replaceAll("-", " ");
+			},
 		},
 		created() {
 			if (this.pokemonObj !== null) {
 				this.pokemon = this.pokemonObj;
+				this.pokemon.fullName = this.FormatName(this.pokemonObj.name);
 				this.mainType = this.pokemonObj.types[0];
 				this.name = this.pokemonObj.name;
+				this.variety = this.pokemonObj.name.split("-")[1];
 			}
 		},
 	};
