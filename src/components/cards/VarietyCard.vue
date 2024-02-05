@@ -49,6 +49,10 @@
 				}
 				return name.replaceAll("-", " ");
 			},
+			SelectVariety(variety) {
+				if (variety.includes("alola")) return "alola";
+				return variety.split("-")[1];
+			},
 		},
 		created() {
 			if (this.Pokemon !== null) {
@@ -56,7 +60,7 @@
 				this.name = this.FormatName(this.Pokemon.name);
 				this.id = this.Pokemon.id;
 				this.url = `/Pokemon/${this.Pokemon.name}`;
-				this.variety = this.Pokemon.name.split("-")[1];
+				this.variety = this.SelectVariety(this.Pokemon.name);
 				this.types = this.Pokemon.types;
 			}
 		},

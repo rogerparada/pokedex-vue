@@ -45,7 +45,7 @@
 					this.image = this.Pokemon.image;
 					this.name = this.Pokemon.name.replaceAll("-", " ");
 					this.id = this.Pokemon.id;
-					this.url = `/Pokemon/${this.Pokemon.name}`;
+					this.url = `/Pokemon/${this.Pokemon.id}`;
 					this.evolution =
 						this.Pokemon.evolution?.evolutionType?.length > 0
 							? this.Pokemon.evolution.evolutionType[0]

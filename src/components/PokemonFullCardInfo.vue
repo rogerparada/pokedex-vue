@@ -127,6 +127,10 @@
 				}
 				return name.replaceAll("-", " ");
 			},
+			SelectVariety(variety) {
+				if (variety.includes("alola")) return "alola";
+				return variety.split("-")[1];
+			},
 		},
 		created() {
 			if (this.pokemonObj !== null) {
@@ -134,7 +138,7 @@
 				this.pokemon.fullName = this.FormatName(this.pokemonObj.name);
 				this.mainType = this.pokemonObj.types[0];
 				this.name = this.pokemonObj.name;
-				this.variety = this.pokemonObj.name.split("-")[1];
+				this.variety = this.SelectVariety(this.pokemonObj.name);
 			}
 		},
 	};

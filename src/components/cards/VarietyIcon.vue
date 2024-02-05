@@ -4,10 +4,11 @@
 
 <script>
 	import KeyStone from "@/assets/images/Stickers_KeyStone.svg";
-	import Giga from "@/assets/images/Dinamax.svg";
+	import Giga from "@/assets/images/Stickers_Dynamax.svg";
 	import Galar from "@/assets/images/Stickers_Galar.svg";
 	import Hisui from "@/assets/images/Stickers_Hisui.svg";
 	import Alola from "@/assets/images/Stickers_Alola.svg";
+	import Paldea from "@/assets/images/Stickers_Paldea.svg";
 	import PokeBall from "@/assets/images/pokeball.svg";
 
 	export default {
@@ -31,6 +32,7 @@
 					galar: { name: "Galar", icon: Galar },
 					hisui: { name: "Hisui", icon: Hisui },
 					alola: { name: "Alola", icon: Alola },
+					paldea: { name: "Paldea", icon: Paldea },
 				};
 				return VARIETIES[variety] || { name: "", icon: PokeBall };
 			},
