@@ -33,6 +33,7 @@
 
 ### Types
 <div class="border border-slate-200 my-5">
+  
 ![Main Card](https://raw.githubusercontent.com/rogerparada/pokedex-vue/refs/heads/master/src/assets/images/Status/Types.png)
 </div>
 
